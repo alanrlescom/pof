@@ -2,6 +2,13 @@
 
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
+
 function mandarError($err, $connection) {
     $connection->close();
     header("Location: ../solicitarReestablecer.php?err=" . $err);
@@ -27,12 +34,40 @@ if ($result) {
         $query = "INSERT INTO solicitudes_reestablecimiento(clave, id_cliente) VALUE ('$key', $id_cliente)";
         $result = $connection->query($query);
         $connection->close();
+
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();  
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'alanrl.escom@gmail.com';
+            $mail->Password   = '414nr0m3r0luc3r0';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+
+            //Recipients
+            $mail->setFrom('alanrl.escom@gmail.com', 'POF');
+            $mail->addAddress('alanrolu@gmail.com', 'Alan');     //Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Pack On Fire - Reestablecimiento de contraseña';
+            $mail->Body    = 'Has click en el siguiente enlace para reestablecer tu contraseña: <br><b><a href="https://localhost/pof/reestablecer.php?key=' . $key . '">Reestablecer contraseña</a></b>';
+
+            $mail->send();
+        } catch (Exception $e) {
+            mandarError(2, $connection);
+        }
+
         header("Location: ../emailEnviado.php?email=$email");
     }
 } else {
     mandarError(2, $connection); // Error con la bd
 }
-$connection->close();
+// $connection->close();
 
 
 ?>

@@ -15,7 +15,7 @@ if (isset($_SESSION["email"])) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reestablecer contraseña | POF</title>
+    <title>Restablecer contraseña | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/login.alt.css" />
@@ -33,7 +33,7 @@ if (isset($_SESSION["email"])) {
         <form action="./controlador/reestablecerPassword.php" method="post" id="newPassword">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Reestablecer contraseña</span>
+                    <span class="card-title">Restablecer contraseña</span>
                 </div>
                 <div class="card-body">
                     <input type="hidden" name="key" value="<?php echo isset($_GET["key"]) ? $_GET["key"] : ''; ?>">
@@ -53,7 +53,7 @@ if (isset($_SESSION["email"])) {
                     </div>
                     <div class="column">
                         <div class="send-button-container">
-                            <button class="send-button" type="submit" id="sendButton">Reestablecer</button>
+                            <button class="send-button" type="submit" id="sendButton">Restablecer</button>
                         </div>
                     </div>
                 </div>

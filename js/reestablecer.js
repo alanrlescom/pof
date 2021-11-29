@@ -38,7 +38,7 @@
 			{
 				1: 'No se encontro una cuenta registrada con este correo',
 				2: 'Ocurrio un error con la base de datos',
-				3: 'No es válido el enlace para reestablecer, verifica si no hay un correo mas reciente',
+				3: 'No es válido el enlace para restablecer, verifica si no hay un correo mas reciente',
 				4: ''
 			}[params.get('err')]
 		);

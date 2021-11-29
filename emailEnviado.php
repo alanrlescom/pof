@@ -14,7 +14,7 @@ if (isset($_SESSION["email"])) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reestablecer contraseña | POF</title>
+    <title>Restablecer contraseña | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
@@ -33,13 +33,13 @@ if (isset($_SESSION["email"])) {
         <form onsubmit="return false;" method="post" id="createForm">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Reestablecer contraseña</span>
+                    <span class="card-title">Restablecer contraseña</span>
                 </div>
                 <div class="card-body">
                     <div class="card-body inner">
                         <div class="columns">
                             <p>
-                                Hemos enviado la información para reestablecer tu contraseña al correo electrónico:
+                                Hemos enviado la información para restablecer tu contraseña al correo electrónico:
                             </p>
                             <p style="text-align: center; font-weight: bold;">
                                 <?php echo isset($_GET["email"]) ? $_GET["email"] : "";?>

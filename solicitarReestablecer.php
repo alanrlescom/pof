@@ -14,7 +14,7 @@ if (isset($_SESSION["email"])) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reestablecer contraseña | POF</title>
+    <title>Restablecer contraseña | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
@@ -33,12 +33,12 @@ if (isset($_SESSION["email"])) {
         <form action="./controlador/enviaEnlace.php" method="post" id="createForm">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Reestablecer contraseña</span>
+                    <span class="card-title">Restablecer contraseña</span>
                 </div>
                 <div class="card-body">
                     <div class="columns">
                         <p>
-                            Ingresa la dirección de correo electrónico con la que te registraste en el sistema, te enviaremos el enlace para reestablecer tu contraseña.
+                            Ingresa la dirección de correo electrónico con la que te registraste en el sistema, te enviaremos el enlace para restablecer tu contraseña.
                         </p>
                     </div>
                     <div class="column">

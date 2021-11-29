@@ -37,6 +37,8 @@
 		);
 	} else if (params.has('created')) {
 		successSwal("Registro completo");
+	} else if (params.has('password')) {
+		successSwal("Contraseña actualizada");
 	}
 
 	

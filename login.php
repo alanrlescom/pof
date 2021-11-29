@@ -2,6 +2,10 @@
 
 session_start();
 
+if (isset($_SESSION["email"])) {
+    header("Location: ./index.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +15,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registrate | POF</title>
+    <title>Inicia sesión | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
@@ -22,12 +26,16 @@ session_start();
 <body>
     <nav class="navbar">
         <a href="./index.php" class="nav-link"> Pack On Fire </a>
+        <div class="spacer"></div>
+        <a href="./index.php" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link">Enviar</a>
+        <a href="#" class="nav-link">Rastreo</a>
     </nav>
     <main class="register-container">
         <form action="./controlador/validarCliente.php" method="post" id="createForm">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Iniciar sesión</span>
+                    <span class="card-title">Iniciar Sesión</span>
                 </div>
                 <div class="card-body">
                     <div class="column">
@@ -47,7 +55,8 @@ session_start();
                     </div>
                     <div class="column">
                         <div class="send-button-container">
-                            <div class="g-recaptcha" data-sitekey="6LewmVgdAAAAAJAdiIZ4SErczM86M1zH_yxof0dC" data-callback="onCaptcha"></div>
+                            <input type="hidden" name="token" id="token" value="" >
+                            <div class="g-recaptcha" data-sitekey="6LewmVgdAAAAAJAdiIZ4SErczM86M1zH_yxof0dC" data-callback="onCaptcha" data-expired-callback="expiredCaptcha"></div>
                             <button class="send-button" type="submit" id="sendButton">Entrar</button>
                             <a href="./crearCuenta.php">
                                 Crea tu cuenta aquí

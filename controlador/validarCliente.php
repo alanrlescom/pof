@@ -6,38 +6,67 @@ function mandarError($err) {
     header("Location: ../login.php?err=" . $err);
 }
 
+$secretoReCatpcha = "6LewmVgdAAAAAFin3oDZQgqgjRJytqRNj6fZJ8hF";
+
+$token = $_POST["token"];
 $email = $_POST["email"];
 $password = $_POST["password"];
 
-$connection = new mysqli("localhost", "root", "", "pof");
+// Peticion de validacion de token
+$postdata = http_build_query(
+    array(
+        'secret' => $secretoReCatpcha,
+        'response' => $token
+    )
+);
+$opts = array('http' =>
+    array(
+        'method' => 'POST',
+        'header' => 'Content-type: application/x-www-form-urlencoded',
+        'content' => $postdata
+    )
+);
+$context = stream_context_create($opts);
+$result = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 
-$query = "SELECT * FROM cliente WHERE correo='$email'";
-$result = $connection->query($query);
-if ($result) {
-    if ($result->num_rows < 1) {
-        mandarError(1); // correo o password incorrectos
-    } else {
-        // Valida la existencia del correo
-        $query = "SELECT * FROM cliente WHERE correo='$email' AND password=MD5('$password')";
+if ($result != FALSE) {
+    $jsonResult = json_decode($result, true);
+    if ($jsonResult["success"]) {
+        $connection = new mysqli("localhost", "root", "", "pof");
+
+        $query = "SELECT * FROM cliente WHERE correo='$email'";
         $result = $connection->query($query);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_array();
-            $_SESSION["email"] = $email;
-            $_SESSION["nombre"] = $row["nombre"];
-
-            $connection->close();
-            header("Location: ../index.php");
+        if ($result) {
+            if ($result->num_rows < 1) {
+                mandarError(1); // correo o password incorrectos
+            } else {
+                // Valida la existencia del correo
+                $query = "SELECT * FROM cliente WHERE correo='$email' AND password=MD5('$password')";
+                $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_array();
+                    $_SESSION["email"] = $email;
+                    $_SESSION["nombre"] = $row["nombre"];
+        
+                    $connection->close();
+                    header("Location: ../index.php");
+                } else {
+                    $connection->close();
+                     // correo o password incorrectos
+                }
+        
+            }
         } else {
             $connection->close();
-            mandarError(1); // correo o password incorrectos
+            mandarError(2); // Error con la bd
         }
-
+        $connection->close();
+    } else {
+        mandarError(3);
     }
 } else {
-    $connection->close();
-    mandarError(2); // Error con la bd
+    mandarError(3);
 }
-$connection->close();
 
 
 ?>

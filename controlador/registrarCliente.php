@@ -26,7 +26,7 @@ if ($result) {
         $result = $connection->query($query);
         if ($result) {
             $connection->close();
-            header("Location: ../login.php");
+            header("Location: ../login.php?created=1");
         } else {
             $connection->close();
             mandarError(3); // No se registro el cliente

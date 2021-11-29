@@ -2,6 +2,10 @@
 
 session_start();
 
+if (isset($_SESSION["email"])) {
+    header("Location: ./index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,6 +24,10 @@ session_start();
 <body>
 	<nav class="navbar">
 		<a href="./index.php" class="nav-link"> Pack On Fire </a>
+		<div class="spacer"></div>
+        <a href="./index.php" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link">Enviar</a>
+        <a href="#" class="nav-link">Rastreo</a>
 	</nav>
 	<main class="register-container">
 		<form action="./controlador/registrarCliente.php" method="post" id="createForm">
@@ -70,7 +78,7 @@ session_start();
 							<input required type="tel" name="phone" id="phone" placeholder="Teléfono"
 								autocomplete="off" />
 						</div>
-						<div class="input-field">
+						<div class="input-field" style="display: none;">
 							<label for="rfc">RFC</label>
 							<input type="text" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" />
 						</div>

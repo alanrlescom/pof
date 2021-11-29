@@ -1,5 +1,6 @@
 (function(){
 
+	window.token = null;
     const params = new URLSearchParams(window.location.search);
 
     function errorSwal(message) {
@@ -14,13 +15,28 @@
 		}
 	}
 
+	function successSwal(message) {
+		if (message) {
+			Swal.fire({
+				icon: 'success',
+				text: message,
+				showCancelButton: false,
+				showConfirmButton: false,
+				showCloseButton: true,
+			});
+		}
+	}
+
     if (params.has('err')) {
 		errorSwal(
 			{
 				1: 'Correo o contraseña incorrectos',
 				2: 'Ocurrio un error interno, intentalo de nuevo mas tarde',
+				3: 'Captcha inválido',
 			}[params.get('err')]
 		);
+	} else if (params.has('created')) {
+		successSwal("Registro completo");
 	}
 
 	
@@ -28,5 +44,9 @@
 })()
 
 function onCaptcha(token) {
-	console.log(token);
+	document.getElementById("token").value = token;
+}
+
+function expiredCaptcha() {
+	document.getElementById("token").value = "";
 }

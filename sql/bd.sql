@@ -13,3 +13,10 @@ CREATE TABLE IF NOT EXISTS cliente
     telefono VARCHAR(8) NOT NULL,
     PRIMARY KEY (id_cliente)
 );
+
+CREATE TABLE IF NOT EXISTS solicitudes_reestablecimiento
+(
+    clave TEXT(900) NOT NULL,
+    id_cliente INT NOT NULL, 
+    PRIMARY KEY (id_cliente)
+);

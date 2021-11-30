@@ -11,7 +11,7 @@ require './PHPMailer/src/SMTP.php';
 
 function mandarError($err, $connection) {
     $connection->close();
-    header("Location: ../solicitarReestablecer.php?err=" . $err);
+    header("Location: ../solicitarRestablecer.php?err=" . $err);
 }
 
 $email = $_POST["email"];
@@ -28,10 +28,10 @@ if ($result) {
         $id_cliente = $row["id_cliente"];
         $key = md5(date('m/d/Y h:i:s a', time()));
 
-        $query = "DELETE FROM solicitudes_reestablecimiento WHERE id_cliente=$id_cliente";
+        $query = "DELETE FROM solicitudes_restablecimiento WHERE id_cliente=$id_cliente";
         $connection->query($query);
         
-        $query = "INSERT INTO solicitudes_reestablecimiento(clave, id_cliente) VALUE ('$key', $id_cliente)";
+        $query = "INSERT INTO solicitudes_restablecimiento(clave, id_cliente) VALUE ('$key', $id_cliente)";
         $result = $connection->query($query);
         $connection->close();
 
@@ -54,8 +54,8 @@ if ($result) {
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Pack On Fire - Reestablecimiento de contraseña';
-            $mail->Body    = 'Has click en el siguiente enlace para reestablecer tu contraseña: <br><b><a href="https://localhost/pof/reestablecer.php?key=' . $key . '">Reestablecer contraseña</a></b>';
+            $mail->Subject = 'Pack On Fire - Restablecimiento de contraseña';
+            $mail->Body    = 'Has click en el siguiente enlace para restablecer tu contraseña: <br><b><a href="https://localhost/pof/restablecer.php?key=' . $key . '">Restablecer contraseña</a></b>';
 
             $mail->send();
         } catch (Exception $e) {

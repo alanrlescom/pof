@@ -30,7 +30,7 @@ if (isset($_SESSION["email"])) {
         <a href="#" class="nav-link">Rastreo</a>
     </nav>
     <main class="register-container">
-        <form action="./controlador/reestablecerPassword.php" method="post" id="newPassword">
+        <form action="./controlador/restablecerPassword.php" method="post" id="newPassword">
             <div class="card">
                 <div class="card-header">
                     <span class="card-title">Restablecer contraseña</span>
@@ -61,7 +61,7 @@ if (isset($_SESSION["email"])) {
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/reestablecer.js"></script>
+    <script src="js/restablecer.js"></script>
 </body>
 
 </html>

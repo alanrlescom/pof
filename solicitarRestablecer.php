@@ -18,7 +18,7 @@ if (isset($_SESSION["email"])) {
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/reestablecer.css" />
+    <link rel="stylesheet" href="css/restablecer.css" />
 </head>
 
 <body>
@@ -59,7 +59,7 @@ if (isset($_SESSION["email"])) {
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/reestablecer.js"></script>
+    <script src="js/restablecer.js"></script>
 </body>
 
 </html>

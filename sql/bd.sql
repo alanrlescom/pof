@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS cliente
     PRIMARY KEY (id_cliente)
 );
 
-CREATE TABLE IF NOT EXISTS solicitudes_reestablecimiento
+CREATE TABLE IF NOT EXISTS solicitudes_restablecimiento
 (
     clave TEXT(900) NOT NULL,
     id_cliente INT NOT NULL, 

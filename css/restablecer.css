@@ -1,125 +1,205 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+	--primary: #c94d64;
+	--accent: #bf0426;
+	--button-radius: 8px;
+	--card-radius: 16px;
 }
 
-  
-  body {
-    background: url(../img/background-login.png) no-repeat;
-    font-family: roboto, sans-serif;
-    line-height: 1.5;
-    margin: 0;
-    min-block-size: 100vh;
-    padding: 5vmin;
-  }
-  
-  h2 {
-    font-size: 1.75rem;
-  }
-  
-  input {
-    background-image: none;
-    border: none;
-    font: inherit;
-    margin: 0;
-    padding: 0;
-    transition: all 0.3s;
-  }
-  
- 
-  /* ---------- ALIGN ---------- */
-  .align {
-    display: grid;
-    place-items: center;
-  }
-  
-  /* ---------- BUTTON ---------- */
-  .buttonini {
-    background-color: #fff;
-    color: #C94D64;
-    padding: 0.25em 1.5em;
-  }
+body {
+	background: url(../img/background-login.png) no-repeat center center fixed;
+	background-size: cover;
+	font-family: 'Roboto', sans-serif;
+}
 
+.navbar {
+	height: 68px;
+	background: var(--primary);
+	position: absolute;
+	width: 100vw;
+	top: 0;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	display: flex;
+	align-items: center;
+}
 
-  .button {
-    background-color: #BF0426;
-    color: #fff;
-    padding: 0.25em 1.5em;
-  }
-  
-  .button:focus,
-  .button:hover {
-    background-color: #97031e;
-  }
+.navbar > a {
+	text-decoration: none;
+	color: white;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	font-weight: bold;
+	font-size: 1.4rem;
+}
 
-  .buttonini:focus,
-  .buttonini:hover {
-    background-color: #E0E0E0;
-  }
-  
-  /* ---------- ICONS ---------- */
-  .icons {
-    display: none;
-  }
-  
-  .icon {
-    fill: currentcolor;
-    display: inline-block;
-    height: 1em;
-    width: 1em;
-  }
-  
-  /* ---------- LOGIN ---------- */
-  .login {
-    width: 500px;
-  }
-  
-  .login__header {
-    background-color: #C94D64;
-    border-top-left-radius: 1.25em;
-    border-top-right-radius: 1.25em;
-    color: #fff;
-    padding: 1.25em 1.625em;
-  }
-  
-  .login__header :first-child {
-    margin-top: 0;
-  }
-  
-  .login__header :last-child {
-    margin-bottom: 0;
-  }
-  
-  .login h2 .icon {
-    margin-right: 14px;
-  }
-  
-  .login__form {
-    background-color: #fff;
-    border-bottom-left-radius: 1.25em;
-    border-bottom-right-radius: 1.25em;
-    color: #777;
-    display: grid;
-    gap: 0.875em;
-    padding: 1.25em 1.625em;
-  }
-  
-  .login input {
-    border-radius: 0.1875em;
-  }
-  
-  .login input[type="email"]{
-    background-color: #eee;
-    color: #777;
-    padding: 0.25em 0.625em;
-    width: 100%;
-  }
-  
-  .login input[type="submit"]{
-    padding: 0.25em 1.5em;
-    margin: 0 108px;
+.spacer {
+	flex-grow: 1;
+}
 
-  }
-  
+.navbar + main {
+	padding-top: 68px;
+}
+
+.register-container {
+	min-width: 100vw;
+	min-height: calc(100vh - 68px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+.card {
+	width: 40vw;
+	height: auto;
+	border-radius: var(--card-radius);
+	background-color: rgba(255, 255, 255, 0.70);
+	padding: 0;
+	display: block;
+	overflow: hidden;
+}
+
+.card-header {
+	padding-top: 1.2rem;
+	padding-bottom: 1rem;
+	background-color: var(--primary);
+	color: white;
+}
+
+.card-header > .card-title {
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+.card-body {
+	padding-left: 6rem !important;
+	padding-right: 6rem !important;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.card > .card-header,
+.card > .card-body {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.column {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	gap: 1.5rem;
+}
+
+.input-field {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 0.6rem;
+}
+
+.input-field > label {
+	font-size: 1.1rem;
+}
+
+.input-field > input {
+	padding: 0.6rem 0.4rem;
+	background: none;
+	border-radius: 8px;
+	border-color: var(--primary);
+	border-width: 3px;
+	border-style: solid;
+	outline: none;
+}
+
+.input-field > input:focus {
+	border-color: var(--accent);
+	outline: none;
+}
+
+.send-button-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	flex-grow: 1;
+	gap: 1rem;
+    margin-top: 1rem;
+}
+
+.send-button {
+	background-color: var(--accent);
+	border: none;
+	color: white;
+	padding: 0.6rem 1rem;
+	border-radius: var(--button-radius);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	/* transition: all 237ms ease-in; */
+}
+
+.card-body.inner {
+    padding: 2rem !important;
+    background-color: var(--primary);
+    color: white;
+    border-radius: var(--button-radius);
+}
+
+.send-button-container-alt {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	flex-grow: 1;
+	gap: 1rem;
+    margin-top: 1rem;
+}
+
+.send-button-alt {
+	background-color: white;
+	border: none;
+	color: var(--accent);
+	padding: 0.6rem 1rem;
+	border-radius: var(--button-radius);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+    text-decoration: none;
+	/* transition: all 237ms ease-in; */
+}
+
+.send-button:active {
+	background-color: var(--primary);
+}
+
+.send-button:disabled {
+	background: darkgray;
+	cursor: not-allowed;
+}
+
+.send-button-container > a {
+	text-decoration: none;
+	color: var(--primary);
+	font-size: 1.2rem;
+}
+
+.forgot-password {
+    display: block;
+	margin-top: 0.5rem;
+	align-self: flex-start;
+	text-decoration: none;
+    color: black;
+}

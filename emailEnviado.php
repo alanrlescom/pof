@@ -18,7 +18,7 @@ if (isset($_SESSION["email"])) {
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/reestablecer.css" />
+    <link rel="stylesheet" href="css/restablecer.css" />
 </head>
 
 <body>

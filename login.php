@@ -65,7 +65,7 @@ if (isset($_SESSION["email"])) {
                     </div>
                 </div>
             </div>
-            <a href="./solicitarReestablecer.php" class="forgot-password">
+            <a href="./solicitarRestablecer.php" class="forgot-password">
                 ¿Has olvidado tu contraseña?
             </a>
         </form>

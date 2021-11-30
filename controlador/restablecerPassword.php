@@ -2,7 +2,7 @@
 
 function mandarError($err, $connection) {
     $connection->close();
-    header("Location: ../reestablecer.php?err=" . $err . "&key=" . $_POST["key"]);
+    header("Location: ../restablecer.php?err=" . $err . "&key=" . $_POST["key"]);
 }
 
 $clave = $_POST["key"];
@@ -10,11 +10,11 @@ $password = $_POST["password"];
 
 $connection = new mysqli("localhost", "root", "", "pof");
 
-$query = "SELECT * FROM solicitudes_reestablecimiento WHERE clave='$clave' GROUP BY id_cliente";
+$query = "SELECT * FROM solicitudes_restablecimiento WHERE clave='$clave' GROUP BY id_cliente";
 $result = $connection->query($query);
 if ($result) {
     if ($result->num_rows < 1) {
-        mandarError(3, $connection); // No hay solicitud de reestablecimiento
+        mandarError(3, $connection); // No hay solicitud de restablecimiento
     } else {
         // Esta validado que el correo no este registrado al menos una vez
         $row = $result->fetch_array();
@@ -23,7 +23,7 @@ if ($result) {
         $connection->query($query);
         if ($result) {
 
-            $connection->query("DELETE FROM solicitudes_reestablecimiento WHERE id_cliente=$id_cliente");
+            $connection->query("DELETE FROM solicitudes_restablecimiento WHERE id_cliente=$id_cliente");
             $connection->close();
 
             header("Location: ../login.php?password=1");

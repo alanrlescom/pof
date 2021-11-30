@@ -15,12 +15,10 @@ if (isset($_SESSION["email"])) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicia sesión | POF</title>
+    <title>Restablecer contraseña | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
-
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/login.alt.css" />
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -32,46 +30,38 @@ if (isset($_SESSION["email"])) {
         <a href="#" class="nav-link">Rastreo</a>
     </nav>
     <main class="register-container">
-        <form action="./controlador/validarCliente.php" method="post" id="createForm">
+        <form action="./controlador/reestablecerPassword.php" method="post" id="newPassword">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Iniciar Sesión</span>
+                    <span class="card-title">Restablecer contraseña</span>
                 </div>
                 <div class="card-body">
+                    <input type="hidden" name="key" value="<?php echo isset($_GET["key"]) ? $_GET["key"] : ''; ?>">
                     <div class="column">
                         <div class="input-field">
-                            <label for="email">Correo electrónico</label>
-                            <input required type="email" name="email" id="email" placeholder="alguien@ejemplo.com"
-                                autocomplete="off" />
-                        </div>
-
-                    </div>
-                    <div class="column">
-                        <div class="input-field">
-                            <label for="password">Contraseña</label>
+                            <label for="password">Nueva contraseña</label>
                             <input required type="password" name="password" id="password" placeholder="Contraseña"
                                 autocomplete="off" />
                         </div>
                     </div>
                     <div class="column">
+                        <div class="input-field">
+                            <label for="confirmPassword">Confirmar contraseña</label>
+                            <input required type="password" id="confirmPassword" name="confirmPassword" placeholder="Contraseña"
+                                autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="column">
                         <div class="send-button-container">
-                            <input type="hidden" name="token" id="token" value="" >
-                            <div class="g-recaptcha" data-sitekey="6LewmVgdAAAAAJAdiIZ4SErczM86M1zH_yxof0dC" data-callback="onCaptcha" data-expired-callback="expiredCaptcha"></div>
-                            <button class="send-button" type="submit" id="sendButton">Entrar</button>
-                            <a href="./crearCuenta.php">
-                                Crea tu cuenta aquí
-                            </a>
+                            <button class="send-button" type="submit" id="sendButton">Restablecer</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="./solicitarReestablecer.php" class="forgot-password">
-                ¿Has olvidado tu contraseña?
-            </a>
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/login.js"></script>
+    <script src="js/reestablecer.js"></script>
 </body>
 
 </html>

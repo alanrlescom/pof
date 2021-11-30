@@ -52,7 +52,7 @@ if ($result != FALSE) {
                     header("Location: ../index.php");
                 } else {
                     $connection->close();
-                     // correo o password incorrectos
+                    mandarError(1); 
                 }
         
             }
@@ -60,7 +60,6 @@ if ($result != FALSE) {
             $connection->close();
             mandarError(2); // Error con la bd
         }
-        $connection->close();
     } else {
         mandarError(3);
     }

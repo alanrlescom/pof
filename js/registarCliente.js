@@ -32,8 +32,8 @@
 			return 'Las contraseñas no coinciden';
 		if (!new RegExp('^[0-9]{10}$').test(v(e.phone)))
 			return 'El teléfono debe ser de 10 dígitos';
-		if (v(e.rfc) !== '' && !new RegExp('^[a-zA-Z0-9]{13}$').test(v(e.rfc)))
-			return 'El RFC debe ser de 13 caracteres alfanuméricos';
+		// if (v(e.rfc) !== '' && !new RegExp('^[a-zA-Z0-9]{13}$').test(v(e.rfc)))
+		// 	return 'El RFC debe ser de 13 caracteres alfanuméricos';
 		return null;
 	}
 

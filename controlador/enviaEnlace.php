@@ -50,7 +50,7 @@ if ($result) {
 
             //Recipients
             $mail->setFrom('alanrl.escom@gmail.com', 'POF');
-            $mail->addAddress('alanrolu@gmail.com', 'Alan');     //Add a recipient
+            $mail->addAddress($email, $email);     //Add a recipient
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML

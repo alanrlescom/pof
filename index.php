@@ -61,13 +61,9 @@ session_start();
             <br>
             <br>
             <h2>O cotice con nosotros</h2>
-            <a href="" class="button2">Cotizar</a>
+            <a href="./cotizar.php" class="button2">Cotizar</a>
 
         </section>
-
-
-
-
     </header>
 
     <main>

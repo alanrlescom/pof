@@ -19,7 +19,8 @@ if (isset($_SESSION["email"])) {
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/login.alt.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/login.css" />
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 

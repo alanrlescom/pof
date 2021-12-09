@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS cliente
     nombre VARCHAR(255) NOT NULL,
     apellido VARCHAR(255) NOT NULL,
     correo VARCHAR(255) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    password LONGTEXT NOT NULL,
     RFC VARCHAR(13) DEFAULT '',
     telefono VARCHAR(8) NOT NULL,
     PRIMARY KEY (id_cliente)

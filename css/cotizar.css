@@ -134,3 +134,31 @@ body {
 .flex-row {
     flex-direction: row;
 }
+
+.bg-white {
+    background-color: white;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.date {
+    margin: 0px 3rem;
+    
+}
+
+.date-main {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: gray;
+    font-weight: normal;
+}
+
+.total .title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}

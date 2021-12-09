@@ -261,7 +261,9 @@
 						</div>
 					</div>
 					<div class="card-body" v-if="step === 1">
-						<div class="flex flex-column">Cotizacion</div>
+						<div class="flex flex-column">
+							<!-- Aqui va la cotizacion -->
+						</div>
 						<div class="flex justify-end gap-2">
 							<button
 								class="btn btn-secondary"

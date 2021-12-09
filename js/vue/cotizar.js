@@ -115,14 +115,24 @@ const vue = new Vue({
 				return;
 			}
 
-            const self = this;
+			const self = this;
 			Swal.fire({
 				title: 'Calculando',
 				didOpen: () => {
 					Swal.showLoading();
 					setTimeout(() => {
 						Swal.close();
-                        self.step = self.step + 1;
+						self.step = self.step + 1;
+                        let direccionOrigen = {};
+                        if (self.envio.recoleccion === "sucursal") {
+                            
+                        }
+
+                        self.consultarDireccion(self.envio.origen).then(rorigen => {
+                            self.consultarDireccion(self.envio.destino).then(rdestino => {
+
+                            })
+                        })
 					}, 2000);
 				},
 			}).then((result) => {
@@ -151,6 +161,17 @@ const vue = new Vue({
 			const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 			const d = R * c;
 			return d.toFixed(3); //Retorna tres decimales
+		},
+		consultarDireccion(direccion) {
+			return $.get(
+				'https://api.copomex.com/query/info_cp_geocoding/' + direccion.cp + '?' +
+					$.param({
+						calle: direccion.calle,
+						numero: direccion.numero,
+						type: 'simplified',
+						token: 'a57b9385-df06-438b-bb43-678195835885',
+					})
+			);
 		},
 	},
 });

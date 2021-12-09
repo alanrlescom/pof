@@ -39,7 +39,7 @@ if ($result) {
 
         try {
             //Server settings
-            $mail->SMTPDebug = 0;
+            // $mail->SMTPDebug = 0;
             $mail->isSMTP();
             $mail->Username   = 'alanrl.escom@gmail.com';
             $mail->Password   = '414nr0m3r0luc3r0';

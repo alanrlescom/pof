@@ -40,13 +40,13 @@ if ($result) {
         try {
             //Server settings
             $mail->SMTPDebug = 0;
-            $mail->isSMTP();  
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
+            $mail->isSMTP();
             $mail->Username   = 'alanrl.escom@gmail.com';
             $mail->Password   = '414nr0m3r0luc3r0';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port       = 587;
+            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPAuth = true; 
+            $mail->Host = "smtp.gmail.com"; 
+            $mail->Port = 465;
 
             //Recipients
             $mail->setFrom('alanrl.escom@gmail.com', 'POF');
@@ -55,7 +55,7 @@ if ($result) {
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Pack On Fire - Restablecimiento de contraseña';
-            $mail->Body    = 'Has click en el siguiente enlace para restablecer tu contraseña: <br><b><a href="https://localhost/pof/restablecer.php?key=' . $key . '">Restablecer contraseña</a></b>';
+            $mail->Body    = 'Has click en el siguiente enlace para restablecer tu contraseña: <br><b><a href="https://216.238.74.227/pof/restablecer.php?key=' . $key . '">Restablecer contraseña</a></b>';
 
             $mail->send();
         } catch (Exception $e) {

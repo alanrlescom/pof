@@ -94,7 +94,7 @@ const vue = new Vue({
 					onombre === '')
 			) {
 				errorSwal(
-					'Origen. Complete todos los campos de sus datos y vuelva a intentarlo por favor'
+					'Complete todos los campos de los datos del remitente y vuelva a intentarlo por favor'
 				);
 				return;
 			}
@@ -108,7 +108,7 @@ const vue = new Vue({
 				nombre === ''
 			) {
 				errorSwal(
-					'Destino. Complete todos los campos de sus datos y vuelva a intentarlo por favor'
+					'Complete todos los campos de los datos de destino y vuelva a intentarlo por favor'
 				);
 				return;
 			}
@@ -306,8 +306,8 @@ const vue = new Vue({
 						calle: direccion.calle,
 						numero: direccion.numero,
 						type: 'simplified',
-						// token: 'a31db21f-63cc-4344-80d5-f74485aa6c78', // Nuevo token
-                        token: 'a57b9385-df06-438b-bb43-678195835885'
+					    token: 'a31db21f-63cc-4344-80d5-f74485aa6c78', // Nuevo token
+                        // token: 'a57b9385-df06-438b-bb43-678195835885'
 					})
 			);
 		},

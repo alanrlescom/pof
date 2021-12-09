@@ -174,7 +174,7 @@
 										style="height: 10rem; height: 10rem">
 									<div class="flex flex-column gap-1 spacer date">
 										<div class="date-main">
-											{{ mostrarFecha(cotizacion.fecha) }} <span class="subtitle">| a más tardas al
+											{{ mostrarFecha(cotizacion.fecha) }} <span class="subtitle">| a más tardar al
 												final del día</span>
 										</div>
 										<span class="subtitle">
@@ -208,7 +208,7 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<script src="./js/vue/cotizar.js"></script>
+	<script src="./js/vue/cotizar.js?t=<?php echo md5_file("./js/vue/cotizar.js");?>"></script>
 </body>
 
 </html>

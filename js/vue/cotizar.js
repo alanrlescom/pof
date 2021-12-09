@@ -34,6 +34,7 @@ const vue = new Vue({
 			cotizacion: {
 				costo: '0.0',
 				fecha: new Date(),
+                distancia: '0',
 			},
 			envio: {
 				categoria: 0,

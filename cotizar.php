@@ -106,7 +106,14 @@
 									</div>
 									<div class="form-field inline">
 										<label for="origencp">Código postal:</label>
-										<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5" />
+										<div class="form-field inline addons">
+											<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5" />
+											<button class="btn btn-secondary btn-outline"
+												:disabled="envio.origen.cp === ''">
+												Consultar
+											</button>
+										</div>
+
 									</div>
 									<div class="form-field inline">
 										<label for="origencolonia">Colonia:</label>
@@ -141,7 +148,14 @@
 									</div>
 									<div class="form-field inline">
 										<label for="destinocp">Código postal:</label>
-										<input type="text" v-model="envio.destino.cp" if="destinocp" maxlength="5" />
+										<div class="form-field inline addons">
+											<input type="text" v-model="envio.destino.cp" if="destinocp"
+												maxlength="5" />
+											<button class="btn btn-secondary btn-outline"
+												:disabled="envio.destino.cp === ''">
+												Consultar
+											</button>
+										</div>
 									</div>
 									<div class="form-field inline">
 										<label for="destinocolonia">Colonia:</label>
@@ -178,7 +192,7 @@
 												final del día</span>
 										</div>
 										<span class="subtitle">
-											Las fechas de llegada están sujetas a disponibilidad 
+											Las fechas de llegada están sujetas a disponibilidad
 										</span>
 									</div>
 								</div>
@@ -189,7 +203,7 @@
 										${{ cotizacion.costo }}MXN
 									</span>
 									<span class="subtitle">
-										${{ cotizacion.distancia }} Km
+										{{ cotizacion.distancia }} Km
 									</span>
 								</div>
 							</div>

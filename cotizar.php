@@ -178,7 +178,7 @@
 												final del día</span>
 										</div>
 										<span class="subtitle">
-											Las fechas de llegada están sujetas a disponibilidad
+											Las fechas de llegada están sujetas a disponibilidad 
 										</span>
 									</div>
 								</div>
@@ -187,6 +187,9 @@
 								<div class="total">
 									<span class="title">
 										${{ cotizacion.costo }}MXN
+									</span>
+									<span class="subtitle">
+										${{ cotizacion.distancia }} Km
 									</span>
 								</div>
 							</div>

@@ -261,12 +261,21 @@ const vue = new Vue({
 			const dis = parseFloat(distancia);
 			const peso = parseFloat(this.envio.peso);
 			const size = {
-				0: 0.5,
-				1: 0.75,
-				2: 1,
-				3: 1.25,
+				0: [1,0,1],
+				1: new Array().fill(0.15),
+				2: new Array().fill(0.25),
+				3: new Array().fill(0.40),
 			}[this.envio.categoria];
 			const date = new Date();
+
+            const pesoVolumetrico = ([w, h, d]) => {
+                return ( w * h * d ) / 5000
+            }
+
+            const precioPorKilometro = (dis) => {
+                return (dis / 10) * 100;
+            }
+
 			if (dis <= 10) {
 				date.setDate(date.getDate() + 2);
 			} else if (dis > 10 && dis < 20) {
@@ -275,8 +284,9 @@ const vue = new Vue({
 				date.setDate(date.getDate() + 5);
 			}
 			this.cotizacion = {
-				costo: parseFloat(dis * peso * size * 20).toFixed(2),
+				costo: parseFloat(precioPorKilometro(dis) * (pesoVolumetrico(size)/100)).toFixed(2),
 				fecha: date,
+                distancia: dis,
 			};
 		},
 		realizarEnvio() {},

@@ -11,7 +11,7 @@ $password = $_POST["password"];
 $phone = $_POST["phone"];
 $rfc = $_POST["rfc"];
 
-$connection = new mysqli("localhost", "root", "", "pof");
+$connection = new mysqli("localhost", "adminpof", "c0ncu1d4d0yd3d4l3sl0busc4n", "pof");
 
 $query = "SELECT COUNT(*) as c FROM cliente WHERE correo='$email' GROUP BY correo";
 $result = $connection->query($query);

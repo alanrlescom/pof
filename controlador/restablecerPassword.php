@@ -8,7 +8,7 @@ function mandarError($err, $connection) {
 $clave = $_POST["key"];
 $password = $_POST["password"];
 
-$connection = new mysqli("localhost", "root", "", "pof");
+$connection = new mysqli("localhost", "adminpof", "c0ncu1d4d0yd3d4l3sl0busc4n", "pof");
 
 $query = "SELECT * FROM solicitudes_restablecimiento WHERE clave='$clave' GROUP BY id_cliente";
 $result = $connection->query($query);

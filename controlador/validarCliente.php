@@ -32,7 +32,7 @@ $result = file_get_contents('https://www.google.com/recaptcha/api/siteverify', f
 if ($result != FALSE) {
     $jsonResult = json_decode($result, true);
     if ($jsonResult["success"]) {
-        $connection = new mysqli("localhost", "root", "", "pof");
+        $connection = new mysqli("localhost", "adminpof", "c0ncu1d4d0yd3d4l3sl0busc4n", "pof");
 
         $query = "SELECT * FROM cliente WHERE correo='$email'";
         $result = $connection->query($query);

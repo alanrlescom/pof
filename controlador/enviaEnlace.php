@@ -16,7 +16,7 @@ function mandarError($err, $connection) {
 
 $email = $_POST["email"];
 
-$connection = new mysqli("localhost", "root", "", "pof");
+$connection = new mysqli("localhost", "adminpof", "c0ncu1d4d0yd3d4l3sl0busc4n", "pof");
 
 $query = "SELECT * FROM cliente WHERE correo='$email'";
 $result = $connection->query($query);

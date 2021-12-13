@@ -18,6 +18,7 @@ if (isset($_SESSION["email"])) {
     <title>Restablecer contraseña | POF</title>
     <link rel="shortcut icon" href="img/tw.png" type="image/x-icon" />
     <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/login.css" />
 </head>
 

@@ -60,7 +60,7 @@ if ($result) {
             echo var_dump($mail->send());
         } catch (Exception $e) {
             // mandarError(2, $connection);
-            echo $connection->error;
+            echo $e->getMessage();
         }
 
         // header("Location: ../emailEnviado.php?email=$email");

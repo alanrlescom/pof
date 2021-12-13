@@ -59,13 +59,15 @@ if ($result) {
 
             echo var_dump($mail->send());
         } catch (Exception $e) {
-            mandarError(2, $connection);
+            // mandarError(2, $connection);
+            echo $connection->error;
         }
 
         // header("Location: ../emailEnviado.php?email=$email");
     }
 } else {
-    mandarError(2, $connection); // Error con la bd
+    echo $connection->error;
+    // mandarError(2, $connection); // Error con la bd
 }
 // $connection->close();
 

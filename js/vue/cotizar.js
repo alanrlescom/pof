@@ -51,7 +51,7 @@ function validaDireccion(dir, mess) {
 
 function validaPeso(peso) {
 	if (!peso) {
-		errorSwal('Olvidó ingresar el peso del paquete.');
+		errorSwal('El peso no puede ser menor o igual a cero.');
 		return false;
 	}
 	if (peso <= 0) {

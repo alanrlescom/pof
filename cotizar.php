@@ -52,7 +52,7 @@
 								</select>
 							</div>
 							<div class="form-field">
-								<label for="peso">Peso(Kg) : </label>
+								<label for="peso">Peso en Kg (Peso máximo: 50 kg) : </label>
 								<input id="peso" type="number" v-model="envio.peso" />
 							</div>
 						</div>

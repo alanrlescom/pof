@@ -43,7 +43,7 @@ if ($result) {
             $mail->isSMTP();
             $mail->Username   = 'alanrl.escom@gmail.com';
             $mail->Password   = '414nr0m3r0luc3r0';
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = 'ssl';
             $mail->SMTPAuth = true; 
             $mail->Host = "smtp.gmail.com"; 
             $mail->Port = 465;

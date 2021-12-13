@@ -76,7 +76,7 @@
 								<div class="column-header">Remitente</div>
 								<div class="flex flex-column gap-1" v-if="[2,3].includes(envio.recoleccion)">
 									<div class="form-field inline">
-										<label for="origennombre">Su nombre:</label>
+										<label for="origennombre">Su nombre completo:</label>
 										<input type="text" v-model="envio.origen.nombre" />
 									</div>
 									<div class="form-field inline">
@@ -90,7 +90,7 @@
 								</div>
 								<div class="flex flex-column gap-2" v-else>
 									<div class="form-field inline">
-										<label for="origennombre">Su nombre:</label>
+										<label for="origennombre">Su nombre completo:</label>
 										<input type="text" v-model="envio.origen.nombre" />
 									</div>
 									<div class="form-field inline">
@@ -140,7 +140,7 @@
 								</div>
 								<div class="flex flex-column gap-1" v-if="[1,3].includes(envio.recoleccion)">
 									<div class="form-field inline">
-										<label for="origennombre">Nombre del destinatario:</label>
+										<label for="origennombre">Nombre completo del destinatario:</label>
 										<input type="text" v-model="envio.destino.nombre" />
 									</div>
 									<div class="form-field inline">
@@ -154,7 +154,7 @@
 								</div>
 								<div class="flex flex-column gap-2" v-else>
 									<div class="form-field inline">
-										<label for="destinonombre">Nombre del destinatario:</label>
+										<label for="destinonombre">Nombre completo del destinatario:</label>
 										<input type="text" v-model="envio.destino.nombre" />
 									</div>
 									<div class="form-field inline">

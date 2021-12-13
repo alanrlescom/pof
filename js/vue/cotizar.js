@@ -253,7 +253,7 @@ const vue = new Vue({
 				.then((infoOrigen) => {
 					new Promise((solve, reject) => {
 						if ([0, 2].includes(recoleccion)) {
-							geocodingRequest(origen)
+							geocodingRequest(destino)
 								.then((d) => {
 									solve({
 										lat: d.latitude,

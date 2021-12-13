@@ -57,6 +57,8 @@ if ($result) {
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Pack On Fire - Restablecimiento de contraseña';
             $mail->Body    = 'Has click en el siguiente enlace para restablecer tu contraseña: <br><b><a href="https://216.238.74.227/pof/restablecer.php?key=' . $key . '">Restablecer contraseña</a></b>';
+
+            $mail->send();
         } catch (Exception $e) {
             mandarError(2, $connection);
         }

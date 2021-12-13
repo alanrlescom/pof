@@ -21,7 +21,6 @@ if (isset($_SESSION["email"])) {
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/login.css" />
 </head>
-
 <body>
     <nav class="navbar">
         <a href="./index.php" class="nav-link"> Pack On Fire </a>

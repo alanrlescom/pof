@@ -20,3 +20,4 @@ CREATE TABLE IF NOT EXISTS solicitudes_restablecimiento
     id_cliente INT NOT NULL, 
     PRIMARY KEY (id_cliente)
 );
+

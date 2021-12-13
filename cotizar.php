@@ -58,13 +58,10 @@
 						</div>
 						<div class="flex gap-1">
 							<div class="form-field">
-								<label for="recoleccion">Recolección del paquete</label>
+								<label for="recoleccion">Opciones de recolección y entrega</label>
 								<select id="recoleccion" v-model="envio.recoleccion">
-									<option :value="'sucursal'">
-										Sucursal
-									</option>
-									<option :value="'domicilio'">
-										Domicilio
+									<option v-for="tipo in tiposRecoleccion" :value="tipo.value">
+										{{ tipo.label }}
 									</option>
 								</select>
 							</div>
@@ -74,10 +71,10 @@
 				<div class="card-body" v-if="step === 0">
 					<div class="flex flex-column gap-2">
 						<div
-							:class="'flex flex-column gap-2 ' + (envio.recoleccion === 'sucursal' ? 'flex-column' : 'flex-row')">
+							:class="'flex flex-column gap-2 ' + ([1,2,3].includes(envio.recoleccion) ? 'flex-column' : 'flex-row')">
 							<div class="flex flex-column flex-1">
 								<div class="column-header">Remitente</div>
-								<div class="flex flex-column gap-1" v-if="envio.recoleccion === 'sucursal'">
+								<div class="flex flex-column gap-1" v-if="[2,3].includes(envio.recoleccion)">
 									<div class="form-field inline">
 										<label for="origennombre">Su nombre:</label>
 										<input type="text" v-model="envio.origen.nombre" />
@@ -85,8 +82,8 @@
 									<div class="form-field inline">
 										<label for="sucursal">Sucursal:</label>
 										<select id="sucursal" v-model="envio.origen.sucursal">
-											<option :value="0">
-												ESCOM
+											<option v-for="sucursal in sucursales" :value="sucursal.value">
+												{{ sucursal.label }}
 											</option>
 										</select>
 									</div>
@@ -97,27 +94,35 @@
 										<input type="text" v-model="envio.origen.nombre" />
 									</div>
 									<div class="form-field inline">
+										<label for="origencp">Código postal:</label>
+										<div class="form-field inline addons">
+											<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5" @blur="consultarCodigoPostal(envio.origen)" />
+											<button class="btn btn-secondary btn-outline"
+												:disabled="envio.origen.cp === ''" @click="consultarCodigoPostal(envio.origen)">
+												Consultar
+											</button>
+										</div>
+									</div>
+									<div class="form-field inline">
 										<label for="origenestado">Estado:</label>
 										<select id="origenestado" v-model="envio.origen.estado">
-											<option :value="'cdmx'">
-												CDMX
+											<option v-for="estado in estados" :value="estado">
+												{{ estado }}
 											</option>
 										</select>
 									</div>
 									<div class="form-field inline">
-										<label for="origencp">Código postal:</label>
-										<div class="form-field inline addons">
-											<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5" />
-											<button class="btn btn-secondary btn-outline"
-												:disabled="envio.origen.cp === ''">
-												Consultar
-											</button>
-										</div>
-
+										<label for="origenmunicipio">Alcaldía/Municipio</label>
+										<input type="text" id="origenmunicipio" v-model="envio.origen.municipio">
 									</div>
 									<div class="form-field inline">
 										<label for="origencolonia">Colonia:</label>
-										<input type="text" id="origencolonia" v-model="envio.origen.colonia" />
+										<input v-if="!envio.origen.colonias" type="text" id="origencolonia" v-model="envio.origen.colonia" />
+										<select v-else id="origencolonia" v-model="envio.origen.colonia">
+											<option v-for="colonia in envio.origen.colonias" :value="colonia">
+												{{ colonia }}
+											</option>
+										</select>
 									</div>
 									<div class="form-field inline">
 										<label for="origencalle">Calle:</label>
@@ -133,33 +138,56 @@
 								<div class="column-header">
 									Destinatario
 								</div>
-								<div class="flex flex-column gap-2">
+								<div class="flex flex-column gap-1" v-if="[1,3].includes(envio.recoleccion)">
+									<div class="form-field inline">
+										<label for="origennombre">Nombre del destinatario:</label>
+										<input type="text" v-model="envio.destino.nombre" />
+									</div>
+									<div class="form-field inline">
+										<label for="sucursal">Sucursal:</label>
+										<select id="sucursal" v-model="envio.destino.sucursal">
+											<option v-for="sucursal in sucursales" :value="sucursal.value">
+												{{ sucursal.label }}
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="flex flex-column gap-2" v-else>
 									<div class="form-field inline">
 										<label for="destinonombre">Nombre del destinatario:</label>
 										<input type="text" v-model="envio.destino.nombre" />
 									</div>
 									<div class="form-field inline">
-										<label for="destinoestado">Estado:</label>
-										<select id="destinoestado" v-model="envio.destino.estado">
-											<option :value="'cdmx'">
-												CDMX
-											</option>
-										</select>
-									</div>
-									<div class="form-field inline">
 										<label for="destinocp">Código postal:</label>
 										<div class="form-field inline addons">
 											<input type="text" v-model="envio.destino.cp" if="destinocp"
-												maxlength="5" />
+												maxlength="5" @blur="consultarCodigoPostal(envio.destino)" />
 											<button class="btn btn-secondary btn-outline"
-												:disabled="envio.destino.cp === ''">
+												:disabled="envio.destino.cp === ''" @click="consultarCodigoPostal(envio.destino)">
 												Consultar
 											</button>
 										</div>
 									</div>
 									<div class="form-field inline">
+										<label for="destinoestado">Estado:</label>
+										<select id="destinoestado" v-model="envio.destino.estado">
+											<option v-for="estado in estados" :value="estado">
+												{{ estado }}
+											</option>
+										</select>
+									</div>
+									<div class="form-field inline">
+										<label for="destinomunicipio">Alcaldía/Municipio</label>
+										<input type="text" id="destinomunicipio" v-model="envio.destino.municipio">
+									</div>
+									<div class="form-field inline">
 										<label for="destinocolonia">Colonia:</label>
-										<input type="text" id="destinocolonia" v-model="envio.destino.colonia" />
+										<input v-if="!envio.destino.colonias" type="text" id="destinocolonia" v-model="envio.destino.colonia" />
+										<select v-else id="destinocolonia" v-model="envio.destino.colonia">
+											<option v-for="colonia in envio.destino.colonias" :value="colonia">
+												{{ colonia }}
+											</option>
+										</select>
 									</div>
 									<div class="form-field inline">
 										<label for="destinocalle">Calle:</label>
@@ -203,7 +231,7 @@
 										${{ cotizacion.costo }}MXN
 									</span>
 									<span class="subtitle">
-										{{ cotizacion.distancia }} Km
+										~ {{ cotizacion.distancia }} Km
 									</span>
 								</div>
 							</div>
@@ -225,6 +253,7 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="./js/scripts.js?t=<?php echo md5_file("./js/scripts.js");?>"></script>
 	<script src="./js/vue/cotizar.js?t=<?php echo md5_file("./js/vue/cotizar.js");?>"></script>
 </body>
 

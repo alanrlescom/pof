@@ -57,12 +57,12 @@ if ($result) {
             $mail->Subject = 'Pack On Fire - Restablecimiento de contraseña';
             $mail->Body    = 'Has click en el siguiente enlace para restablecer tu contraseña: <br><b><a href="https://216.238.74.227/pof/restablecer.php?key=' . $key . '">Restablecer contraseña</a></b>';
 
-            $mail->send();
+            echo var_dump($mail->send());
         } catch (Exception $e) {
             mandarError(2, $connection);
         }
 
-        header("Location: ../emailEnviado.php?email=$email");
+        // header("Location: ../emailEnviado.php?email=$email");
     }
 } else {
     mandarError(2, $connection); // Error con la bd

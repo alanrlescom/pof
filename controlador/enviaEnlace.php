@@ -46,7 +46,8 @@ if ($result) {
             $mail->SMTPSecure = 'ssl';
             $mail->SMTPAuth = true; 
             $mail->Host = "smtp.gmail.com"; 
-            $mail->Port = 465;
+            $mail->Port = 587;
+            $mail->SMTPDebug = 1;
 
             //Recipients
             $mail->setFrom('alanrl.escom@gmail.com', 'POF');

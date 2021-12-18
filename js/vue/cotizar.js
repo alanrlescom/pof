@@ -1,21 +1,3 @@
-/**
- *
- * 		Informacion para peticiones de codigo postal
- * 		Token: b93424ad68356bf9aed75e0d4f42d3129817c3e0
- * 		GET: https://sepomex.razektheone.com/codigo_postal?cp=07510
- * 		Headers: Apikey: b93424ad68356bf9aed75e0d4f42d3129817c3e0
- *
- * 		Position track Token: 7265d75e9680ba837540547495b929f2
- * 		baseURL: https://api.positionstack.com/v1/
- * 		/forward?access_key=7265d75e9680ba837540547495b929f2&query=
- *
- * 		Ejemplo de peticion completo:
- * 			https://api.positionstack.com/v1/forward?
- * 					access_key=7265d75e9680ba837540547495b929f2&
- * 					query=Hualahuises 19314, San Felipe de Jesus, 07510 CDMX&
- * 					country=MX
- */
-
 function calcKm({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) {
 	rad = function (x) {
 		return (x * Math.PI) / 180;
@@ -104,6 +86,18 @@ function geocodingRequest(dir) {
 	});
 }
 
+const stripe = Stripe(
+	'pk_test_51K74NuJ4An9dIGcQpyb7pUfF6IKW0Llc4SXI1qYuMSAaYksgipYrhv0LNUzlNYlViQPcJOALFHCWyjxD0Ig2EeoD00biXQXBw1'
+);
+const elements = stripe.elements();
+const style = {
+	base: {
+		color: '#32325d',
+	},
+};
+
+const card = elements.create('card', { style: style, hidePostalCode: true, });
+card.mount('#card-element');
 const vue = new Vue({
 	el: '#root',
 	data() {
@@ -111,8 +105,14 @@ const vue = new Vue({
 			subtitle: {
 				0: '',
 				1: '',
+				2: '',
 			},
-			step: 0,
+			title: {
+				0: 'Cotizar envio',
+				1: 'Entrega estimada:',
+				2: 'Pago:',
+			},
+			step: 2,
 			estados: [],
 			sucursales: [
 				{
@@ -298,7 +298,7 @@ const vue = new Vue({
 			};
 
 			const precioPorKilometro = (dis) => {
-				return (dis / 10) * 100;
+				return Math.ceil(dis / 10) * 100;
 			};
 
 			if (dis <= 10) {
@@ -317,20 +317,8 @@ const vue = new Vue({
 				distancia: distancia,
 			};
 		},
-		realizarEnvio() {},
-		consultarDireccion(direccion) {
-			// return $.get(
-			// 	'https://api.copomex.com/query/info_cp_geocoding/' +
-			// 		direccion.cp +
-			// 		'?' +
-			// 		$.param({
-			// 			calle: direccion.calle,
-			// 			numero: direccion.numero,
-			// 			type: 'simplified',
-			// 			token: 'a31db21f-63cc-4344-80d5-f74485aa6c78', // Nuevo token
-			// 			// token: 'a57b9385-df06-438b-bb43-678195835885'
-			// 		})
-			// );
+		realizarEnvio() {
+			this.step = this.step + 1;
 		},
 		consultarCodigoPostal(obj) {
 			sepomexRequest('codigo_postal', { cp: obj.cp })

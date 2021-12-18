@@ -8,7 +8,9 @@
 	<title>Cotizar envío | POF</title>
 	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="./css/styles.css" />
-	<link rel="stylesheet" href="./css/cotizar.css" />
+	<!-- <link rel="stylesheet" href="./css/cotizar.css" /> -->
+	<script src="https://js.stripe.com/v3"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -24,7 +26,7 @@
 			<div :class="'card ' +( step === 0 ? '' : ' bg-white')">
 				<div class="card-header">
 					<span class="card-title">
-						{{ step === 0 ? "Cotizar envio" : "Entrega estimada:" }}
+						{{ title[step] }}
 					</span>
 					<div class="spacer"></div>
 					<div class="card-subtitle">{{ subtitle[step] }}</div>
@@ -96,7 +98,8 @@
 									<div class="form-field inline">
 										<label for="origencp">Código postal:</label>
 										<div class="form-field inline addons">
-											<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5" @blur="consultarCodigoPostal(envio.origen)" />
+											<input type="text" v-model="envio.origen.cp" if="origencp" maxlength="5"
+												@blur="consultarCodigoPostal(envio.origen)" />
 											<button class="btn btn-secondary btn-outline"
 												:disabled="envio.origen.cp === ''" @click="consultarCodigoPostal(envio.origen)">
 												Consultar
@@ -117,7 +120,8 @@
 									</div>
 									<div class="form-field inline">
 										<label for="origencolonia">Colonia:</label>
-										<input v-if="!envio.origen.colonias" type="text" id="origencolonia" v-model="envio.origen.colonia" />
+										<input v-if="!envio.origen.colonias" type="text" id="origencolonia"
+											v-model="envio.origen.colonia" />
 										<select v-else id="origencolonia" v-model="envio.origen.colonia">
 											<option v-for="colonia in envio.origen.colonias" :value="colonia">
 												{{ colonia }}
@@ -160,8 +164,8 @@
 									<div class="form-field inline">
 										<label for="destinocp">Código postal:</label>
 										<div class="form-field inline addons">
-											<input type="text" v-model="envio.destino.cp" if="destinocp"
-												maxlength="5" @blur="consultarCodigoPostal(envio.destino)" />
+											<input type="text" v-model="envio.destino.cp" if="destinocp" maxlength="5"
+												v-on:blur="consultarCodigoPostal(envio.destino)" />
 											<button class="btn btn-secondary btn-outline"
 												:disabled="envio.destino.cp === ''" @click="consultarCodigoPostal(envio.destino)">
 												Consultar
@@ -182,7 +186,8 @@
 									</div>
 									<div class="form-field inline">
 										<label for="destinocolonia">Colonia:</label>
-										<input v-if="!envio.destino.colonias" type="text" id="destinocolonia" v-model="envio.destino.colonia" />
+										<input v-if="!envio.destino.colonias" type="text" id="destinocolonia"
+											v-model="envio.destino.colonia" />
 										<select v-else id="destinocolonia" v-model="envio.destino.colonia">
 											<option v-for="colonia in envio.destino.colonias" :value="colonia">
 												{{ colonia }}
@@ -246,6 +251,23 @@
 						</button>
 					</div>
 				</div>
+				<div class="card-body" v-if="step === 2">
+					<form id="payment-form" class="flex flex-column gap-4">
+						<div class="flex-grow">
+							<div id="card-element">
+								<!-- Elements will create input elements here -->
+							</div>
+							<!-- We'll put the error messages in this element -->
+							<div id="card-errors" role="alert"></div>
+						</div>
+						<div class="flex flex-row justify-end gap-2">
+							<button class="btn btn-secondary" @click="prevStep">
+								Regresar
+							</button>
+							<button id="submit" class="btn btn-primary">Enviar</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</main>
 	</div>
@@ -253,8 +275,10 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<script src="./js/scripts.js?t=<?php echo md5_file("./js/scripts.js");?>"></script>
-	<script src="./js/vue/cotizar.js?t=<?php echo md5_file("./js/vue/cotizar.js");?>"></script>
+	<!-- <?php echo md5_file("./js/scripts.js");?> -->
+	<script src="./js/scripts.js?t="></script>
+	<!-- <?php echo md5_file("./js/vue/cotizar.js");?> -->
+	<script src="./js/vue/cotizar.js?t="></script>
 </body>
 
 </html>

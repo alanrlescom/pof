@@ -34,6 +34,7 @@ if (isset($_SESSION["email"])) {
     </nav>
     <main class="register-container">
         <form action="./controlador/validarCliente.php" method="post" id="createForm">
+            <input type="hidden" value="<?echo isset($_GET["save"]) ? 1 : 0; ?>" name="saveCotizacion">
             <div class="card">
                 <div class="card-header">
                     <span class="card-title">Iniciar Sesión</span>
@@ -59,7 +60,7 @@ if (isset($_SESSION["email"])) {
                             <input type="hidden" name="token" id="token" value="" >
                             <div class="g-recaptcha" data-sitekey="6LewmVgdAAAAAJAdiIZ4SErczM86M1zH_yxof0dC" data-callback="onCaptcha" data-expired-callback="expiredCaptcha"></div>
                             <button class="send-button" type="submit" id="sendButton">Entrar</button>
-                            <a href="./crearCuenta.php">
+                            <a href="./crearCuenta.php<?php echo isset($_GET["save"]) ? "?save=1" : "";?>">
                                 Crea tu cuenta aquí
                             </a>
                         </div>

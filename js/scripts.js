@@ -21,3 +21,14 @@ function successSwal(message) {
 		});
 	}
 }
+
+function loadingSwal() {
+	Swal.fire({
+		didOpen: () => {
+			Swal.showLoading();
+		},
+		allowOutsideClick: false,
+		allowEscapeKey: false,
+		allowEnterKey: false,
+	})
+}

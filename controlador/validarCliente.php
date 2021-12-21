@@ -49,7 +49,11 @@ if ($result != FALSE) {
                     $_SESSION["nombre"] = $row["nombre"];
         
                     $connection->close();
-                    header("Location: ../index.php");
+                    if (isset($_POST["saveCotizacion"])) {
+                        header("Location: ../cotizar.php?save=1");
+                    } else {
+                        header("Location: ../index.php");
+                    }
                 } else {
                     $connection->close();
                     mandarError(1); 

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +11,8 @@
 	<title>Cotizar envío | POF</title>
 	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="./css/styles.css" />
-	<!-- <link rel="stylesheet" href="./css/cotizar.css" /> -->
+	<link rel="stylesheet" href="./css/cotizar.css" />
 	<script src="https://js.stripe.com/v3"></script>
-	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 	<div id="root" v-cloak>
@@ -205,6 +207,9 @@
 							</div>
 						</div>
 						<div class="flex justify-end gap-2">
+							<button class="btn btn-secondary" @click="cancelar">
+								Cancelar
+							</button>
 							<button class="btn btn-primary" @click="cotizar">
 								Cotizar
 							</button>
@@ -245,25 +250,20 @@
 						<button class="btn btn-secondary" @click="prevStep">
 							Regresar
 						</button>
-						<button class="btn btn-primary" @click="realizarEnvio">
-							Realizar envío
+						<button class="btn btn-primary" @click="realizarEnvio(<?php echo isset($_SESSION["email"]) ? 1 : 0; ?>)">
+							<?php echo isset($_SESSION["email"]) ? "Realizar envío" : "Inicia sesión para realizar el envio"; ?>
 						</button>
 					</div>
 				</div>
 				<div class="card-body" v-if="step === 2">
-					<form id="payment-form" class="flex flex-column gap-4">
-						<div class="flex-grow">
-							<div id="card-element">
-								<!-- Elements will create input elements here -->
-							</div>
-							<!-- We'll put the error messages in this element -->
-							<div id="card-errors" role="alert"></div>
+					<form class="flex flex-column gap-2" id="payment-form" @submit="guardarEnvio">
+						<div id="payment-element">
+							<!--Stripe.js injects the Payment Element-->
 						</div>
-						<div class="flex flex-row justify-end gap-2">
-							<button class="btn btn-secondary" @click="prevStep">
-								Regresar
+						<div class="flex flex-row justify-end">
+							<button id="submit" type="submit" class="btn btn-primary">
+								<span id="button-text">Pagar</span>
 							</button>
-							<button id="submit" class="btn btn-primary">Enviar</button>
 						</div>
 					</form>
 				</div>
@@ -274,10 +274,8 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<!-- <?php echo md5_file("./js/scripts.js");?> -->
-	<script src="./js/scripts.js?t="></script>
-	<!-- <?php echo md5_file("./js/vue/cotizar.js");?> -->
-	<script src="./js/vue/cotizar.js?t="></script>
+	<script src="./js/scripts.js?t=<?php echo md5_file("./js/scripts.js");?>"></script>
+	<script src="./js/vue/cotizar.js?t=<?php echo md5_file("./js/vue/cotizar.js");?>"></script>
 </body>
 
 </html>

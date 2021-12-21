@@ -87,17 +87,12 @@ function geocodingRequest(dir) {
 }
 
 const stripe = Stripe(
-	'pk_test_51K74NuJ4An9dIGcQpyb7pUfF6IKW0Llc4SXI1qYuMSAaYksgipYrhv0LNUzlNYlViQPcJOALFHCWyjxD0Ig2EeoD00biXQXBw1'
+	'pk_test_51K74NuJ4An9dIGcQpyb7pUfF6IKW0Llc4SXI1qYuMSAaYksgipYrhv0LNUzlNYlViQPcJOALFHCWyjxD0Ig2EeoD00biXQXBw1',
+	{
+		locale: 'es',
+	}
 );
-const elements = stripe.elements();
-const style = {
-	base: {
-		color: '#32325d',
-	},
-};
 
-const card = elements.create('card', { style: style, hidePostalCode: true, });
-card.mount('#card-element');
 const vue = new Vue({
 	el: '#root',
 	data() {
@@ -149,9 +144,11 @@ const vue = new Vue({
 					colonia: '',
 					calle: '',
 					numero: '',
-					nombre: '',
 					estado: 'CIUDAD DE MEXICO',
 					municipio: '',
+					nombre: '',
+					email: '',
+					telefono: '',
 				},
 				destino: {
 					sucursal: 0,
@@ -159,16 +156,21 @@ const vue = new Vue({
 					colonia: '',
 					calle: '',
 					numero: '',
-					nombre: '',
 					estado: 'CIUDAD DE MEXICO',
 					municipio: '',
+					nombre: '',
+					email: '',
+					telefono: '',
 				},
 			},
 			cotizacion: {
 				costo: '0.0',
 				fecha: new Date(),
 				distancia: '0',
+				pesoVolumetrico: 0,
 			},
+			stripeElements: null,
+			paymentElement: null,
 		};
 	},
 	methods: {
@@ -236,6 +238,7 @@ const vue = new Vue({
 
 			const self = this;
 
+			loadingSwal();
 			new Promise((solve, reject) => {
 				if ([0, 1].includes(recoleccion)) {
 					geocodingRequest(origen)
@@ -273,6 +276,7 @@ const vue = new Vue({
 								calcKm(infoOrigen, infoDestino)
 							);
 							self.step = self.step + 1;
+							Swal.close();
 						})
 						.catch((err) => {
 							errorSwal('La calle o el número no son válidos');
@@ -315,10 +319,71 @@ const vue = new Vue({
 				).toFixed(2),
 				fecha: date,
 				distancia: distancia,
+				pesoVolumetrico: pesoVolumetrico(size),
 			};
 		},
-		realizarEnvio() {
-			this.step = this.step + 1;
+		realizarEnvio(hasSession) {
+			const self = this;
+			loadingSwal();
+			if (hasSession === 1) {
+				this.iniciaPago()
+					.then((_) => {
+						Swal.close();
+						self.step = self.step + 1;
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			} else {
+				localStorage.setItem(
+					'POF_ENVIO_INFO',
+					JSON.stringify({
+						envio: this.envio,
+						cotizacion: this.cotizacion,
+					})
+				);
+				window.location.href = './login.php?save=1';
+			}
+		},
+		guardarEnvio(e) {
+			e.preventDefault();
+			loadingSwal();
+			$.post("./controlador/guardarEnvio.php", {
+				envio: JSON.stringify(this.envio),
+				cotizacion: JSON.stringify(this.cotizacion),
+			}).then(rguardar => {
+				if (rguardar.status === 200) {
+					stripe.confirmPayment({
+						//`Elements` instance that was used to create the Payment Element
+						elements: this.stripeElements,
+						confirmParams: {
+							return_url: 'https://216.238.74.227/pof/envioRealizado.php',
+						},
+					}).then(rstripe => {
+						if (rstripe.error) {
+							$.post("./controlador/eliminarEnvio.php", {
+								id: rguardar.extras.id,
+							}).then(r => {
+								Swal.close();
+								if (r.status === 200) {
+									// Mostrar error de stripe
+								} else {
+									errorSwal(r.message);
+								}
+							}).catch(err => {
+								Swal.close();
+								errorSwal("Ocurrio un error desconocido");
+							})
+						}
+					})
+				} else {
+					Swal.close();
+					errorSwal(rguardar.message);
+				}
+			}).catch(err => {
+				Swal.close();
+				errorSwal("Ocurrio un error desconocido");
+			})
 		},
 		consultarCodigoPostal(obj) {
 			sepomexRequest('codigo_postal', { cp: obj.cp })
@@ -343,8 +408,47 @@ const vue = new Vue({
 				})
 				.catch(console.log);
 		},
+		iniciaPago() {
+			return $.post('./controlador/clientSecret.php', {
+				amount: 100,
+			}).then((r) => {
+				self.stripeElements = stripe.elements({
+					clientSecret: r.clientSecret,
+					appearance: {
+						theme: 'flat',
+					},
+				});
+
+				self.paymentElement = stripeElements.create('payment', {
+					wallets: {
+						googlePay: 'never',
+					},
+					fields: {
+						billingDetails: {
+							address: 'never',
+						},
+					},
+				});
+				paymentElement.mount('#payment-element');
+			});
+		},
+		cancelar() {
+			window.location.href = './index.php';
+		},
 	},
 	mounted() {
 		this.obtenerEstados();
+		const params = new URLSearchParams(window.location.search);
+
+		if (localStorage.getItem('POF_ENVIO_INFO')) {
+			if (params.has('save')) {
+				const d = JSON.parse(localStorage.getItem('POF_ENVIO_INFO'));
+				this.envio = d.envio;
+				this.cotizacion = d.cotizacion;
+				this.step = 1;
+			} else {
+				localStorage.removeItem('POF_ENVIO_INFO');
+			}
+		}
 	},
 });

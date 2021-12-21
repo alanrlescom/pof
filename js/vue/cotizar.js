@@ -23,8 +23,7 @@ function validaDireccion(dir, mess) {
 		colonia !== '' &&
 		numero !== '' &&
 		calle !== '' &&
-		estado !== '' &&
-		nombre !== '';
+		estado !== '';
 	if (!f) {
 		errorSwal(mess);
 	}
@@ -107,7 +106,7 @@ const vue = new Vue({
 				1: 'Entrega estimada:',
 				2: 'Pago:',
 			},
-			step: 2,
+			step: 0,
 			estados: [],
 			sucursales: [
 				{
@@ -196,20 +195,6 @@ const vue = new Vue({
 			const { cp, nombre } = destino;
 
 			if (!validaPeso(peso)) return;
-
-			if (nombre === '') {
-				errorSwal(
-					'Complete todos los campos de los datos de destino y vuelva a intentarlo por favor'
-				);
-				return;
-			}
-
-			if (onombre === '') {
-				errorSwal(
-					'Complete todos los campos de los datos del remitente y vuelva a intentarlo por favor'
-				);
-				return;
-			}
 
 			if (
 				[0, 1].includes(recoleccion) && // Si la recoleccion es a domicilio
@@ -325,11 +310,11 @@ const vue = new Vue({
 		realizarEnvio(hasSession) {
 			const self = this;
 			loadingSwal();
+			self.step = self.step + 1;
 			if (hasSession === 1) {
 				this.iniciaPago()
 					.then((_) => {
 						Swal.close();
-						self.step = self.step + 1;
 					})
 					.catch((e) => {
 						console.log(e);
@@ -348,42 +333,61 @@ const vue = new Vue({
 		guardarEnvio(e) {
 			e.preventDefault();
 			loadingSwal();
-			$.post("./controlador/guardarEnvio.php", {
+			const self = this;
+			$.post('./controlador/guardarEnvio.php', {
 				envio: JSON.stringify(this.envio),
 				cotizacion: JSON.stringify(this.cotizacion),
-			}).then(rguardar => {
-				if (rguardar.status === 200) {
-					stripe.confirmPayment({
-						//`Elements` instance that was used to create the Payment Element
-						elements: this.stripeElements,
-						confirmParams: {
-							return_url: 'https://216.238.74.227/pof/envioRealizado.php',
-						},
-					}).then(rstripe => {
-						if (rstripe.error) {
-							$.post("./controlador/eliminarEnvio.php", {
-								id: rguardar.extras.id,
-							}).then(r => {
-								Swal.close();
-								if (r.status === 200) {
-									// Mostrar error de stripe
-								} else {
-									errorSwal(r.message);
-								}
-							}).catch(err => {
-								Swal.close();
-								errorSwal("Ocurrio un error desconocido");
-							})
-						}
-					})
-				} else {
-					Swal.close();
-					errorSwal(rguardar.message);
-				}
-			}).catch(err => {
-				Swal.close();
-				errorSwal("Ocurrio un error desconocido");
 			})
+				.then((str_rguardar) => {
+					const rguardar = JSON.parse(str_rguardar);
+					if (rguardar.status === 200) {
+						console.log('haz esto');
+						stripe
+							.confirmPayment({
+								//`Elements` instance that was used to create the Payment Element
+								elements: this.stripeElements,
+								confirmParams: {
+									return_url:
+										'https://216.238.74.227/pof/envioRealizado.php',
+								},
+							})
+							.then((rstripe) => {
+								if (rstripe.error) {
+									$.post('./controlador/eliminarEnvio.php', {
+										id: rguardar.extras.id,
+									})
+										.then((str_r) => {
+											const r = JSON.parse(str_r);
+											Swal.close();
+											console.log(rstripe);
+											if (r.status === 200) {
+												// Mostrar error de stripe
+											} else {
+												errorSwal(r.message);
+											}
+										})
+										.catch((err) => {
+											Swal.close();
+											console.log(err);
+											errorSwal(
+												'Ocurrio un error desconocido'
+											);
+										});
+								}
+							})
+							.catch((e) => {
+								console.log(e);
+							});
+					} else {
+						Swal.close();
+						errorSwal(rguardar.message);
+					}
+				})
+				.catch((err) => {
+					Swal.close();
+					console.log(err);
+					errorSwal('Ocurrio un error desconocido');
+				});
 		},
 		consultarCodigoPostal(obj) {
 			sepomexRequest('codigo_postal', { cp: obj.cp })
@@ -409,6 +413,7 @@ const vue = new Vue({
 				.catch(console.log);
 		},
 		iniciaPago() {
+			const self = this;
 			return $.post('./controlador/clientSecret.php', {
 				amount: 100,
 			}).then((r) => {
@@ -419,17 +424,17 @@ const vue = new Vue({
 					},
 				});
 
-				self.paymentElement = stripeElements.create('payment', {
+				self.paymentElement = self.stripeElements.create('payment', {
 					wallets: {
 						googlePay: 'never',
 					},
 					fields: {
 						billingDetails: {
-							address: 'never',
+							address: 'auto',
 						},
 					},
 				});
-				paymentElement.mount('#payment-element');
+				self.paymentElement.mount('#payment-element');
 			});
 		},
 		cancelar() {

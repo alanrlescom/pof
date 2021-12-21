@@ -1,5 +1,11 @@
 <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    require './libraries/PHPMailer/src/Exception.php';
+    require './libraries/PHPMailer/src/PHPMailer.php';
+    require './libraries/PHPMailer/src/SMTP.php';
     include "./conexion.php";
 
     function guardarDireccion($direccion, mysqli $conn) {
@@ -10,9 +16,9 @@
         $estado = $direccion["estado"];
         $municipio = $direccion["municipio"];
 
-        $query = "INSERT INTO direccion(cp,colonia,calle,numero,estado,municipio) VALUES ($cp, $colonia, $calle, $numero, $estado, $municipio)";
+        $query = "INSERT INTO direccion(cp,colonia,calle,numero,estado,municipio) VALUES ('$cp', '$colonia', '$calle', '$numero', '$estado', '$municipio')";
         $result = $conn->query($query);
-        if ($result) {
+        if ($result == FALSE) {
             echo $conn->error;
         }
         return $conn->insert_id;
@@ -23,9 +29,9 @@
         $telefono = $direccion["telefono"];
         $email = $direccion["email"];
 
-        $query = "INSERT INTO contacto(nombre, telefono, email) VALUES ($nombre, $telefono, $email)";
+        $query = "INSERT INTO contacto(nombre, telefono, email) VALUES ('$nombre', '$telefono', '$email')";
         $result = $conn->query($query);
-        if ($result) {
+        if ($result == FALSE) {
             echo $conn->error;
         }
         return $conn->insert_id;
@@ -46,14 +52,20 @@
     $recoleccion = $envio["recoleccion"];
     $costo = $cotizacion["costo"];
     $fechaLlegada = $cotizacion["fecha"];
+    $id_cliente = $_SESSION["id_cliente"];
 
-    $query = "INSERT INTO envio(origen, remitente, destino, destinatario, size, peso, recoleccion, costo, fecha_llegada) VALUES ($id_origen, $remitente, $id_destino, $destinatario, $size, $peso, $recoleccion, $costo, $fechaLlegada)";
+    $query = "INSERT INTO envio(id_cliente,origen, remitente, destino, destinatario, size, peso, recoleccion, costo, fecha_llegada) VALUES ($id_cliente, $id_origen, $remitente, $id_destino, $destinatario, '$size', '$peso', '$recoleccion', '$costo', '$fechaLlegada')";
     $result = $conn->query($query);
+    if ($result == FALSE) {
+        echo $conn->error;
+    }
     $id = $conn->insert_id;
     if ($result) {
         echo $conn->error;
     }
 
+
+    $mail = new PHPMailer(true);
 
     try {
 
@@ -64,7 +76,7 @@
         $mail->SMTPAuth = true; 
         $mail->Host = "smtp.gmail.com"; 
         $mail->Port = 587;
-        $mail->SMTPDebug = 1;
+        $mail->SMTPDebug = false;
 
         $mail->setFrom('alanrl.escom@gmail.com', 'POF');
 
@@ -82,7 +94,7 @@
 
         $mail->isHTML(true);
         $mail->Subject = 'Pack On Fire - Rastreo';
-        $mail->Body    = 'Has click en el siguiente enlace para rastrear el envio: <br><b><a href="https://216.238.74.227/pof/rastreo.php?id=' . $id . '">Restablecer contraseña</a></b><p>O ingresa el codigo '. $id .' en la pagina de rastreo.</p>';
+        $mail->Body    = 'Has click en el siguiente enlace para rastrear el envio: <br><b><a href="https://216.238.74.227/pof/rastreo.php?id=' . $id . '">Rastrear envio</a></b><p>O ingresa el codigo '. $id .' en la pagina de rastreo.</p>';
 
         $mail->send();
 

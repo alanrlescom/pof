@@ -47,6 +47,7 @@ if ($result != FALSE) {
                     $row = $result->fetch_array();
                     $_SESSION["email"] = $email;
                     $_SESSION["nombre"] = $row["nombre"];
+                    $_SESSION["id_cliente"] = $row["id_cliente"];
         
                     $connection->close();
                     if (isset($_POST["saveCotizacion"])) {

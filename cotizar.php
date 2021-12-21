@@ -79,10 +79,6 @@ session_start();
 								<div class="column-header">Remitente</div>
 								<div class="flex flex-column gap-1" v-if="[2,3].includes(envio.recoleccion)">
 									<div class="form-field inline">
-										<label for="origennombre">Su nombre completo:</label>
-										<input type="text" v-model="envio.origen.nombre" />
-									</div>
-									<div class="form-field inline">
 										<label for="sucursal">Sucursal:</label>
 										<select id="sucursal" v-model="envio.origen.sucursal">
 											<option v-for="sucursal in sucursales" :value="sucursal.value">
@@ -92,10 +88,6 @@ session_start();
 									</div>
 								</div>
 								<div class="flex flex-column gap-2" v-else>
-									<div class="form-field inline">
-										<label for="origennombre">Su nombre completo:</label>
-										<input type="text" v-model="envio.origen.nombre" />
-									</div>
 									<div class="form-field inline">
 										<label for="origencp">Código postal:</label>
 										<div class="form-field inline addons">
@@ -145,10 +137,6 @@ session_start();
 								</div>
 								<div class="flex flex-column gap-1" v-if="[1,3].includes(envio.recoleccion)">
 									<div class="form-field inline">
-										<label for="origennombre">Nombre completo del destinatario:</label>
-										<input type="text" v-model="envio.destino.nombre" />
-									</div>
-									<div class="form-field inline">
 										<label for="sucursal">Sucursal:</label>
 										<select id="sucursal" v-model="envio.destino.sucursal">
 											<option v-for="sucursal in sucursales" :value="sucursal.value">
@@ -158,10 +146,6 @@ session_start();
 									</div>
 								</div>
 								<div class="flex flex-column gap-2" v-else>
-									<div class="form-field inline">
-										<label for="destinonombre">Nombre completo del destinatario:</label>
-										<input type="text" v-model="envio.destino.nombre" />
-									</div>
 									<div class="form-field inline">
 										<label for="destinocp">Código postal:</label>
 										<div class="form-field inline addons">
@@ -257,6 +241,22 @@ session_start();
 				</div>
 				<div class="card-body" v-if="step === 2">
 					<form class="flex flex-column gap-2" id="payment-form" @submit="guardarEnvio">
+						<div>
+							<input type="text" placeholder="nombre remitente" v-model="envio.origen.nombre">
+							<input type="text" placeholder="nombre destinatario" v-model="envio.destino.nombre">
+							<input type="text" placeholder="telefono remitente" v-model="envio.origen.telefono">
+							<input type="text" placeholder="telefono destinatario" v-model="envio.destino.telefono">
+							<input type="text" placeholder="email remitente" v-model="envio.origen.email">
+							<input type="text" placeholder="email destinatario" v-model="envio.destino.email">
+						</div>
+						<div class="form-field inline">
+							<label for="origennombre">Su nombre completo:</label>
+							<input type="text" v-model="envio.origen.nombre" />
+						</div>
+						<div class="form-field inline">
+							<label for="destinonombre">Nombre completo del destinatario:</label>
+							<input type="text" v-model="envio.destino.nombre" />
+						</div>
 						<div id="payment-element">
 							<!--Stripe.js injects the Payment Element-->
 						</div>

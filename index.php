@@ -30,8 +30,8 @@ session_start();
 
         <nav>
             <a href="./index.php">Inicio</a>
-            <a href="">Enviar</a>
-            <a href="">Rastreo</a>
+            <a href="./cotizar.php">Enviar</a>
+            <a href="./rastreo.php">Rastreo</a>
             <?php if (!isset($_SESSION["email"])) {?>
             <a href="login.php" class="button3">Iniciar Sesion/Registrate</a>
             <?php } else { ?>
@@ -56,7 +56,7 @@ session_start();
                 </form>
             </div>
 
-            <a href="" class="button1">Rastrear</a>
+            <a href="./rastreo.php" class="button1">Rastrear</a>
             <br>
             <br>
             <br>

@@ -31,7 +31,7 @@
 			return 'Las contraseñas no coinciden';
 		if(v(e.phone) === '') return 'El telefono es obligatorio';
 		if (!new RegExp('^[0-9]{10}$').test(v(e.phone)) && v(e.phone)!= '')
-			return 'El teléfono debe ser de 10 dígitos sin letras ni caracteres expeciales';
+			return 'El teléfono debe ser de 10 dígitos sin letras ni caracteres especiales';
 		// if (v(e.rfc) !== '' && !new RegExp('^[a-zA-Z0-9]{13}$').test(v(e.rfc)))
 		// 	return 'El RFC debe ser de 13 caracteres alfanuméricos';
 		return null;

@@ -13,6 +13,11 @@ session_start();
 	<link rel="stylesheet" href="./css/styles.css" />
 	<link rel="stylesheet" href="./css/cotizar.css" />
 	<script src="https://js.stripe.com/v3"></script>
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 	<div id="root" v-cloak>
@@ -241,26 +246,52 @@ session_start();
 				</div>
 				<div class="card-body" v-if="step === 2">
 					<form class="flex flex-column gap-2" id="payment-form" @submit="guardarEnvio">
-						<div>
-							<input type="text" placeholder="nombre remitente" v-model="envio.origen.nombre">
-							<input type="text" placeholder="nombre destinatario" v-model="envio.destino.nombre">
-							<input type="text" placeholder="telefono remitente" v-model="envio.origen.telefono">
-							<input type="text" placeholder="telefono destinatario" v-model="envio.destino.telefono">
-							<input type="text" placeholder="email remitente" v-model="envio.origen.email">
-							<input type="text" placeholder="email destinatario" v-model="envio.destino.email">
+						<div class="flex flex-grow-1 flex-row gap-2">
+							<div class="flex flex-1 flex-column gap-2">
+								<div class="column-header">
+									Remitente
+								</div>
+								<div class="form-field inline">
+									<label>Su nombre completo:</label>
+									<input type="text" v-model="envio.origen.nombre" />
+								</div>
+								<div class="form-field inline">
+									<label>Telefono:</label>
+									<input type="text" v-model="envio.origen.telefono">
+								</div>
+								<div class="form-field inline">
+									<label>Correo electrónico (opcional):</label>
+									<input type="text" v-model="envio.origen.email">
+								</div>
+							</div>
+							<div class="flex flex-1 flex-column gap-2">
+								<div class="column-header">
+									Destinatario
+								</div>
+								<div class="form-field inline">
+									<label>Nombre completo:</label>
+									<input type="text" v-model="envio.destino.nombre" />
+								</div>
+								<div class="form-field inline">
+									<label>Telefono:</label>
+									<input type="text" v-model="envio.destino.telefono">
+								</div>
+								<div class="form-field inline">
+									<label>Correo electrónico (opcional):</label>
+									<input type="text" v-model="envio.destino.email">
+								</div>
+							</div>
 						</div>
-						<div class="form-field inline">
-							<label for="origennombre">Su nombre completo:</label>
-							<input type="text" v-model="envio.origen.nombre" />
-						</div>
-						<div class="form-field inline">
-							<label for="destinonombre">Nombre completo del destinatario:</label>
-							<input type="text" v-model="envio.destino.nombre" />
+						<div class="column-header">
+							Datos bancarios
 						</div>
 						<div id="payment-element">
 							<!--Stripe.js injects the Payment Element-->
 						</div>
-						<div class="flex flex-row justify-end">
+						<div class="flex flex-row justify-end gap-2">
+							<button class="btn btn-secondary" @click="prevStep">
+								Regresar
+							</button>
 							<button id="submit" type="submit" class="btn btn-primary">
 								<span id="button-text">Pagar</span>
 							</button>

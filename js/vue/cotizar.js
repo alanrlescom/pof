@@ -348,13 +348,14 @@ const vue = new Vue({
 								elements: this.stripeElements,
 								confirmParams: {
 									return_url:
-										'https://216.238.74.227/pof/envioRealizado.php',
+										'https://localhost/pof/envioRealizado.php?id=' +
+										rguardar.extra.id,
 								},
 							})
 							.then((rstripe) => {
 								if (rstripe.error) {
 									$.post('./controlador/eliminarEnvio.php', {
-										id: rguardar.extras.id,
+										id: rguardar.extra.id,
 									})
 										.then((str_r) => {
 											const r = JSON.parse(str_r);

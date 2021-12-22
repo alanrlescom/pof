@@ -8,11 +8,8 @@
     require './libraries/PHPMailer/src/SMTP.php';
     include "./conexion.php";
 
-    $envio = json_decode($_POST["envio"], true);
-    $cotizacion = json_decode($_POST["cotizacion"], true);
-
-    $origen = $envio['origen'];
-    $destino = $envio['destino'];
+    $origen = json_decode($_POST["origen"], true);
+    $destino = json_decode($_POST["destino"], true);
 
     $id = $_POST["id"];
 
@@ -35,7 +32,7 @@
             $mail->addAddress($_SESSION["email"], $_SESSION["email"]);
         }
 
-        if ($origen["email"] != "") {
+        if ($origen["email"] != "" && $_SESSION["email"] != $origen["email"]) {
             $mail->addCC($origen["email"]);
         }
 

@@ -2,6 +2,7 @@ new Vue({
 	el: '#root',
 	data() {
 		return {
+            auxNumGuia: '',
 			numGuia: '',
 			estados: {
 				0: 'Envio solicitado',
@@ -17,13 +18,13 @@ new Vue({
 	methods: {
 		getRastreo() {
 			loadingSwal();
+            this.numGuia = this.auxNumGuia;
 			$.post('./controlador/rastreo.php', {
 				id: this.numGuia,
 			})
 				.then((res) => {
 					Swal.close();
 					const r = JSON.parse(res);
-					console.log(r);
 					this.data = r.extra;
 				})
 				.catch((e) => {
@@ -67,11 +68,9 @@ new Vue({
 	mounted() {
 		const params = new URLSearchParams(window.location.search);
 		if (params.get('guia')) {
-			this.numGuia = params.get('guia');
+			this.auxNumGuia = params.get('guia');
 			loadingSwal();
-			setTimeout(() => {
-				this.getRastreo();
-			}, 500);
+			this.getRastreo();
 		}
 	},
 });

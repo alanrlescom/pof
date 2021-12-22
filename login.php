@@ -34,7 +34,7 @@ if (isset($_SESSION["email"])) {
     </nav>
     <main class="register-container">
         <form action="./controlador/validarCliente.php" method="post" id="createForm">
-            <input type="hidden" value="<?echo isset($_GET["save"]) ? 1 : 0; ?>" name="saveCotizacion">
+            <input type="hidden" value="<?php echo isset($_GET["save"]) ? 1 : 0; ?>" name="saveCotizacion">
             <div class="card">
                 <div class="card-header">
                     <span class="card-title">Iniciar Sesión</span>

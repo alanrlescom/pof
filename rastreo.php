@@ -37,12 +37,12 @@ session_start();
             <h1 class="text-rose-600 text-4xl">
                 Rastreo de paquete
             </h1>
-            <div class="flex flex-col justify-center gap-4">
+            <div class="flex flex-col justify-center gap-4 mt-4">
                 <p class="text-xl text-center">
                     Ingresa tu número de guia para visualizar el estado de tu envío
                 </p>
                 <div class="flex flex-row gap-3 justify-center">
-                    <input type="text" class="p-3 outline-none focus:ring-rose-400 rounded-md w-2/5 ring-2 ring-rose-500 placeholder:text-rose-200" placeholder="# DE GUIA" v-model="numGuia">
+                    <input type="text" class="text-center p-3 outline-none focus:ring-rose-400 rounded-md w-2/5 ring-2 ring-rose-500 placeholder:text-rose-200" placeholder="# DE GUIA" v-model="auxNumGuia">
                     <button class="bg-rose-500 active:bg-rose-700 hover:bg-rose-600 p-2 rounded-md text-white" @click="getRastreo">
                         Rastrear
                     </button>
@@ -51,9 +51,9 @@ session_start();
             <div class="flex flex-col w-4/5 gap-8 m-auto mt-12" v-if="data">
                 <div class="flex font-bold text-xl justify-center">
                     <p>
-                        Estado del número de guia: 
+                        Estado del número de guia
                     </p>
-                    <p class="ml-2 text-rose-400">
+                    <p class="ml-2">
                         {{ numGuia }}
                     </p>
                 </div>

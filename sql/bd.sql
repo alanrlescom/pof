@@ -65,3 +65,14 @@ CREATE TABLE IF NOT EXISTS envio
     FOREIGN KEY(remitente) REFERENCES direccion(id),
     FOREIGN KEY(destinatario) REFERENCES direccion(id)
 );
+
+CREATE TABLE IF NOT EXISTS sucursal
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre LONGTEXT NOT NULL,
+    direccion INT NOT NULL,
+    lat VARCHAR(255) NOT NULL,
+    lon VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(direccion) REFERENCES direccion(id)
+);

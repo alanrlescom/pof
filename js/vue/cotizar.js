@@ -299,7 +299,7 @@ const vue = new Vue({
 			}
 
 			this.cotizacion = {
-				costo: parseFloat(
+				costo: precioPorKilometro(dis) + parseFloat(
 					precioPorKilometro(dis) * (pesoVolumetrico(size) / 100)
 				).toFixed(2),
 				fecha: date,

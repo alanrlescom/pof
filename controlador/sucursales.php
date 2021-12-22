@@ -1,7 +1,8 @@
 <?php
     include "./conexion.php";
     
-    $query = "SELECT * FROM sucursal";
+    try {
+        $query = "SELECT * FROM sucursal";
     $result = $conn->query($query);
     if ($result != FALSE) {
         echo $conn->error;
@@ -11,5 +12,9 @@
         array_push($array, $row);
     }
     send_response(200, "ok", $array);
-    // $conn->close();
+    
+    } catch(Exception $e) {
+        echo $e->getMessage();
+    }
+    $conn->close();
 ?>

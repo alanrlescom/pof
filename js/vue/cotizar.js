@@ -432,6 +432,8 @@ const vue = new Vue({
 															'Ocurrio un error haciendo el cobro'
 														);
 													}
+												} else if (["incomplete_number", "incomplete_expiry", "incomplete_cvc"].includes(rstripe.error.code)) {
+													errorSwal('Complete todos los campos por favor');
 												} else {
 													errorSwal(
 														'Ocurrio un error haciendo el cobro'

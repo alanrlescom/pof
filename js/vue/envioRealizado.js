@@ -12,6 +12,7 @@ new Vue({
 				6: 'Entregado',
 			},
 			data: null,
+			w: window,
 		};
 	},
 	methods: {
@@ -41,6 +42,7 @@ new Vue({
                 {
                     origen: JSON.stringify(this.data.remitente),
                     destino: JSON.stringify(this.data.destinatario),
+					data: this.data,
                     id: this.numGuia,
                 }
             )

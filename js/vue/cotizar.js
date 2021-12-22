@@ -108,13 +108,7 @@ const vue = new Vue({
 			},
 			step: 0,
 			estados: [],
-			sucursales: [
-				{
-					value: 0,
-					label: 'ESCOM',
-					data: { lat: 19.505, lon: -99.14666667 },
-				},
-			],
+			sucursales: [],
 			tiposRecoleccion: [
 				{
 					value: 2,
@@ -457,9 +451,16 @@ const vue = new Vue({
 		cancelar() {
 			window.location.href = './index.php';
 		},
+		obenerSucursales() {
+			$.post("./controlador/sucursales.php", {}).then(res => {
+				const r = JSON.parse(res);
+				this.sucursales = r.extra.map(v => ({value: v.id, label: v.nombre, data: { lat: v.lat, lon: v.lon }}))
+			}).catch(console.log)
+		},
 	},
 	mounted() {
 		this.obtenerEstados();
+		this.obenerSucursales();
 		const params = new URLSearchParams(window.location.search);
 
 		if (localStorage.getItem('POF_ENVIO_INFO')) {

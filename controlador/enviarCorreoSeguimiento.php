@@ -53,5 +53,7 @@
     } catch (Exception $e) {
         send_response(500, "Error enviando el correo electronico", "");
     }
+
+    $conn->close();
     
 ?>

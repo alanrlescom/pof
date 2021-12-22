@@ -9,4 +9,5 @@
     } else {
         send_response(200, "ok", "");
     }
+    $conn->close();
 ?>

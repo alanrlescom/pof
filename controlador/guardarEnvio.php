@@ -47,8 +47,10 @@
     $costo = $cotizacion["costo"];
     $fechaLlegada = $cotizacion["fecha"];
     $id_cliente = $_SESSION["id_cliente"];
+    $sucursalOrigen = $origen["sucursal"];
+    $sucursalDestino = $destino["sucursal"];
 
-    $query = "INSERT INTO envio(id_cliente,origen, remitente, destino, destinatario, size, peso, recoleccion, costo, fecha_llegada) VALUES ($id_cliente, $id_origen, $remitente, $id_destino, $destinatario, '$size', '$peso', '$recoleccion', '$costo', '$fechaLlegada')";
+    $query = "INSERT INTO envio(id_cliente,origen, remitente, destino, destinatario, size, peso, recoleccion, costo, fecha_llegada, sucursal_destino, sucursal_origen) VALUES ($id_cliente, $id_origen, $remitente, $id_destino, $destinatario, '$size', '$peso', '$recoleccion', '$costo', '$fechaLlegada', $sucursalDestino, $sucursalOrigen)";
     $result = $conn->query($query);
     if ($result == FALSE) {
         echo $conn->error;
@@ -61,6 +63,8 @@
     send_response(200, "ok", array(
         "id" => $id
     ));
+
+    $conn->close();
 
     
 ?>

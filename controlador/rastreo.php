@@ -20,6 +20,15 @@ function obtenerContacto($id, mysqli $conn) {
     return $result->fetch_assoc();
 }
 
+function obtenerSucursal($id, mysqli $conn) {
+    $query = "SELECT * FROM sucursal WHERE id=$id";
+    $result = $conn->query($query);
+    if ($result == FALSE) {
+        echo $conn->error;
+    }
+    return $result->fetch_assoc();
+}
+
 $id = $_POST["id"];
 
 $query = "SELECT * FROM envio WHERE id=$id";
@@ -31,6 +40,8 @@ if ($result && $result->num_rows > 0) {
     $destino = obtenerDireccion($row["destino"], $conn);
     $remitente = obtenerContacto($row["remitente"], $conn);
     $destinatario = obtenerContacto($row["destinatario"], $conn);
+    $sucursalOrigen = obtenerSucursal($row["sucursal_origen"], $conn);
+    $sucursalDestino = obtenerSucursal($row["sucursal_destino"], $conn);
 
     send_response(200, "ok", array(
         "envio" => $row,
@@ -39,11 +50,15 @@ if ($result && $result->num_rows > 0) {
         "remitente" => $remitente,
         "destinatario" => $destinatario,
         "mismaCuenta" => isset($_SESSION["id_cliente"]) ? $row["id_cliente"] == $_SESSION["id_cliente"] : FALSE,
+        "sucursalOrigen" => $sucursalOrigen,
+        "sucursalDestino" => $sucursalDestino
     ));
     
 
 } else {
     send_response(500, "No existe un envio con este numero de guia", "");
 }
+
+$conn->close();
 
 ?>

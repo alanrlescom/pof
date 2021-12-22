@@ -26,13 +26,6 @@ session_start();
 
 <body>
     <div id="root" v-cloak>
-        <nav class="navbar">
-            <a href="./index.php" class="nav-link"> Pack On Fire </a>
-            <div class="spacer"></div>
-            <a href="./index.php" class="nav-link">Inicio</a>
-            <a href="#" class="nav-link">Enviar</a>
-            <a href="#" class="nav-link">Rastreo</a>
-        </nav>
         <main class="flex justify-center m-16" v-if="data">
             <div class="bg-white w-4/5 flex flex-col gap-3 rounded-md overflow-hidden shadow-md">
                 <div class="flex flex-row items-stretch">
@@ -56,6 +49,14 @@ session_start();
                         </a>
                     </div>
                 </div>
+                <div class="flex flex-col justify-end gap-4 p-4">
+                    <p class="text-right text-3xl font-bold text-rose-700">
+                        ${{ data.envio.costo }} MXN
+                    </p>
+                    <p class="text-right text-xl italic text-slate-800">
+                        Entrega estimada: {{ new Date(data.envio.fecha_llegada).toISOString().split("T").shift().replace(new RegExp('-','g'), '/') }}
+                    </p>
+                </div>
                 <div class="flex flex-col gap-4 p-4">
                     <p class="italic font-bold">
                         El pedido ha sido recibido y esta siendo procesado
@@ -70,7 +71,7 @@ session_start();
                                 Contacto: <span class="font-bold">{{ data.remitente.nombre }}, tel. {{data.remitente.telefono}}</span>
                             </p>
                             <p>
-                                Direccion: <span class="font-bold">{{ origen }}</span>
+                                {{ [2,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Direccion" }}: <span class="font-bold">{{ [2,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalOrigen.nombre : origen }}</span>
                             </p>
                         </div>
                         <div class="flex-1 flex flex-col gap-4">
@@ -82,14 +83,17 @@ session_start();
                                 Contacto: <span class="font-bold">{{ data.destinatario.nombre }}, tel. {{data.destinatario.telefono}}</span>
                             </p>
                             <p>
-                                Direccion: <span class="font-bold">{{ destino }}</span>
+                            {{ [1,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Direccion" }}: <span class="font-bold">{{ [1,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalDestino.nombre : destino }}</span>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row justify-end p-4">
+                <div class="flex flex-row justify-end p-4 gap-3">
                     <a class="p-3 bg-slate-200 active:bg-slate-400 hover:bg-slate-300 text-slate-800 rounded-md" href="./index.php">
                         Volver
+                    </a>
+                    <a class="cursor-pointer p-3 bg-rose-600 active:bg-rose-800 hover:bg-rose-700 text-white rounded-md" @click="w.print">
+                        Imprimir comprobante
                     </a>
                 </div>
             </div>

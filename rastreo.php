@@ -162,7 +162,7 @@ session_start();
                         <p class="text-lg font-bold">
                             Entregado
                         </p>
-                        <div class="flex flex-col" v-if="estado > ['1','3'].includes(data.envio.recoleccion) ? 4 : 3">
+                        <div class="flex flex-col" v-if="estado === 5">
                             <p>
                                 Entregado {{ fechaEntrega }}
                             </p>

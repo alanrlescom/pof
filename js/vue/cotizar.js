@@ -287,7 +287,8 @@ const vue = new Vue({
 			};
 
 			const precioPorKilometro = (dis) => {
-				return Math.ceil(dis / 10) * 100;
+				const d = Math.ceil(dis / 10)
+				return d < 1 ? 0.5 : d * 100;
 			};
 
 			if (dis <= 10) {

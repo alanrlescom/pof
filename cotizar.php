@@ -232,7 +232,7 @@ session_start();
 										~ {{ cotizacion.distancia }} Km
 									</span>
 									<span class="subtitle">
-										{{ cotizacion.pesoVolumetrico }} cm3
+										Peso volumetrico: {{ cotizacion.pesoVolumetrico }}
 									</span>
 								</div>
 							</div>

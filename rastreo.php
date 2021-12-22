@@ -162,7 +162,7 @@ session_start();
                         <p class="text-lg font-bold">
                             Entregado
                         </p>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col" v-if="estado > 4">
                             <p>
                                 Entregado {{ fechaEntrega }}
                             </p>

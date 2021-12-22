@@ -364,14 +364,16 @@ const vue = new Vue({
 											const r = JSON.parse(str_r);
 											Swal.close();
 											if (r.status === 200) {
-												if (
-													rstripe.error
-														.decline_code ===
-													'insufficient_funds'
-												) {
-													errorSwal(
-														'El cobro fue rechazado por saldo insuficiente'
-													);
+												if (rstripe.error.code === "card_declined") {
+													if (
+														rstripe.error
+															.decline_code ===
+														'insufficient_funds'
+													) {
+														errorSwal(
+															'El cobro fue rechazado por saldo insuficiente'
+														);
+													}
 												} else {
 													errorSwal(
 														'Ocurrio un error haciendo el cobro'

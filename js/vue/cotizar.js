@@ -6,7 +6,7 @@ function validate(e) {
 		return false;
 	}
 	if (
-		!new RegExp('^(?!.* $)[A-Za-z]+$').test(v(e.nombre)) &&
+		!new RegExp('^(?!.* $)[A-Za-z ]+$').test(v(e.nombre)) &&
 		v(e.nombre) != ''
 	) {
 		errorSwal('El nombre no puede tener digitos ni caracteres especiales');

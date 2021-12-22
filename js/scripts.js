@@ -1,5 +1,6 @@
 function errorSwal(message) {
 	if (message) {
+		Swal.hideLoading()
 		Swal.fire({
 			icon: 'error',
 			text: message,
@@ -12,6 +13,7 @@ function errorSwal(message) {
 
 function successSwal(message) {
 	if (message) {
+		Swal.hideLoading()
 		Swal.fire({
 			icon: 'success',
 			text: message,

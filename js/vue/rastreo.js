@@ -2,7 +2,7 @@ new Vue({
 	el: '#root',
 	data() {
 		return {
-            auxNumGuia: '',
+			auxNumGuia: '',
 			numGuia: '',
 			estados: {
 				0: 'Envio solicitado',
@@ -17,24 +17,36 @@ new Vue({
 	},
 	methods: {
 		getRastreo() {
-			loadingSwal();
-            this.numGuia = this.auxNumGuia;
-			$.post('./controlador/rastreo.php', {
-				id: this.numGuia,
-			})
-				.then((res) => {
-					Swal.close();
-					const r = JSON.parse(res);
-					if (r.status === 200) {
-						this.data = r.extra;
-					}  else {
-						errorSwal("No existe un envio con este numero de guia")
-						this.data = null;
-					}
+			this.numGuia = this.auxNumGuia;
+			if (this.numGuia === "") {
+				errorSwal(
+					"Campos obligatorios, complete todos los campos por favor."
+				)
+			}else if (!new RegExp('^[0-9]{1,11}$').test(this.numGuia)) {
+				errorSwal(
+					'El número de guía ingresado no es válido. Ingrese un número de guía que tenga entre 1 y 11 dígitos.'
+				);
+			} else {
+				loadingSwal();
+				$.post('./controlador/rastreo.php', {
+					id: this.numGuia,
 				})
-				.catch((e) => {
-					console.log(e);
-				});
+					.then((res) => {
+						Swal.close();
+						const r = JSON.parse(res);
+						if (r.status === 200) {
+							this.data = r.extra;
+						} else {
+							errorSwal(
+								'No existe un envio con este numero de guia'
+							);
+							this.data = null;
+						}
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
 		},
 	},
 	computed: {
@@ -46,15 +58,15 @@ new Vue({
 			}
 			return 'el ' + d.getDate();
 		},
-        fechaCreacion() {
-            const d = new Date(this.data.envio.creacion);
+		fechaCreacion() {
+			const d = new Date(this.data.envio.creacion);
 			const hoy = new Date();
 			if (d.getDate() === hoy.getDate()) {
 				return 'hoy';
 			}
 			return 'el ' + d.getDate();
-        },
-        fechaEntrega() {
+		},
+		fechaEntrega() {
 			const d = new Date(this.data.envio.actualizacion);
 			const hoy = new Date();
 
@@ -63,12 +75,12 @@ new Vue({
 			}
 			return 'el ' + d.getDate();
 		},
-        horaEntrega() {
-            return new Date(this.data.envio.actualizacion).toLocaleTimeString();
-        },
-        estado() {
-            return parseInt(this.data.envio.estado)
-        }
+		horaEntrega() {
+			return new Date(this.data.envio.actualizacion).toLocaleTimeString();
+		},
+		estado() {
+			return parseInt(this.data.envio.estado);
+		},
 	},
 	mounted() {
 		const params = new URLSearchParams(window.location.search);

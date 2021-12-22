@@ -48,15 +48,14 @@ session_start();
             <br>
 
             <div class="center">
-                <form>
+                <form method="GET" action="./rastreo.php">
                     <div class="inputbox">
-                        <input type="text" required="required">
+                        <input type="text" required="required" name="guia">
                         <span>Introduzca su numero de ID para rastrear</span>
                     </div>
+                    <button href="./rastreo.php" class="button1" type="submit">Rastrear</butt>
                 </form>
             </div>
-
-            <a href="./rastreo.php" class="button1">Rastrear</a>
             <br>
             <br>
             <br>

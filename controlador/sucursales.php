@@ -10,8 +10,7 @@
     while ($row = $result->fetch_assoc()) {
         $array[] = $row;
     }
-    echo var_dump($array);
-    // send_response(200, "ok", $array);
+    send_response(200, "ok", $array);
     
     $conn->close();
 ?>

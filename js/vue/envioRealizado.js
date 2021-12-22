@@ -35,7 +35,7 @@ new Vue({
             }, 500)
 		},
         enviarCorreo() {
-            /*
+            
             $.post(
                 './controlador/enviarCorreoSeguimiento.php',
                 {
@@ -46,7 +46,7 @@ new Vue({
             )
                 .then(console.log)
                 .catch(console.log);
-                */
+                
         },
 	},
 	computed: {

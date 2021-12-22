@@ -348,7 +348,7 @@ const vue = new Vue({
 								elements: this.stripeElements,
 								confirmParams: {
 									return_url:
-										'https://localhost/pof/envioRealizado.php?guia=' +
+										'https://216.238.74.227/pof/envioRealizado.php?guia=' +
 										rguardar.extra.id,
 								},
 							})

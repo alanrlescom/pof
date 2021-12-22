@@ -259,7 +259,7 @@ session_start();
 									<input type="text" v-model="envio.origen.nombre" />
 								</div>
 								<div class="form-field inline">
-									<label>Telefono*:</label>
+									<label>Teléfono*:</label>
 									<input type="text" v-model="envio.origen.telefono">
 								</div>
 								<div class="form-field inline">
@@ -276,7 +276,7 @@ session_start();
 									<input type="text" v-model="envio.destino.nombre" />
 								</div>
 								<div class="form-field inline">
-									<label>Telefono*:</label>
+									<label>Teléfono*:</label>
 									<input type="text" v-model="envio.destino.telefono">
 								</div>
 								<div class="form-field inline">

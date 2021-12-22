@@ -20,7 +20,7 @@
 		if (v(e.nombre) === '') return 'El nombre es obligatorio';
 		if (!new RegExp('^(?!.* $)[A-Z][a-z]+$').test(v(e.nombre)) && v(e.nombre) != '') return 'El nombre no puede tener digitos ni caracteres especiales';
 		if (v(e.apellido) === '') return 'Los apellidos son obligatorios';
-		if (!new RegExp('^(?!.* $)[A-Z][a-z]+$').test(v(e.apellido)) && v(e.apellido)!= '') return 'El apellido no puede tener digitos ni caracteres especiales';
+		if (!new RegExp('^(?!.* $)[A-Za-z ]+$').test(v(e.apellido)) && v(e.apellido)!= '') return 'El apellido no puede tener digitos ni caracteres especiales';
 		if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.
 		test(v(e.email).toLowerCase())) return 'El correo electrónico no es valido';
 		if (!new RegExp('^.{8,30}$').test(v(e.password)))

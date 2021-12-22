@@ -40,7 +40,7 @@ session_start();
                     <div class="flex flex-col justify-start p-3">
                         <a class="text-xl" href="./rastreo.php?guia=<?php echo $_GET["guia"];?>">
                             <p class="font-bold">
-                                Número de Guia <?php echo $_GET["guia"];?>
+                                Número de Guía <?php echo $_GET["guia"];?>
                             </p>
                             <p class="text-base">
                                 
@@ -71,7 +71,7 @@ session_start();
                                 Contacto: <span class="font-bold">{{ data.remitente.nombre }}, tel. {{data.remitente.telefono}}</span>
                             </p>
                             <p>
-                                {{ [2,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Direccion" }}: <span class="font-bold">{{ [2,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalOrigen.nombre : origen }}</span>
+                                {{ [2,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Dirección" }}: <span class="font-bold">{{ [2,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalOrigen.nombre : origen }}</span>
                             </p>
                         </div>
                         <div class="flex-1 flex flex-col gap-4">
@@ -83,7 +83,7 @@ session_start();
                                 Contacto: <span class="font-bold">{{ data.destinatario.nombre }}, tel. {{data.destinatario.telefono}}</span>
                             </p>
                             <p>
-                            {{ [1,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Direccion" }}: <span class="font-bold">{{ [1,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalDestino.nombre : destino }}</span>
+                                {{ [1,3].includes(parseInt(data.envio.recoleccion)) ? "Sucursal" : "Dirección" }}: <span class="font-bold">{{ [1,3].includes(parseInt(data.envio.recoleccion)) ? data.sucursalDestino.nombre : destino }}</span>
                             </p>
                         </div>
                     </div>

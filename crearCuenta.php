@@ -76,7 +76,7 @@ if (isset($_SESSION["email"])) {
 					<div class="column">
 						<div class="input-field">
 							<label for="phone">Teléfono*</label>
-							<input  type="tel" name="phone" id="phone" placeholder="Teléfono"
+							<input  type="text" name="phone" id="phone" placeholder="Teléfono"
 								autocomplete="off" />
 						</div>
 						<div class="input-field" style="display: none;">

@@ -231,6 +231,9 @@ session_start();
 									<span class="subtitle">
 										~ {{ cotizacion.distancia }} Km
 									</span>
+									<span class="subtitle">
+										{{ cotizacion.pesoVolumetrico }} cm3
+									</span>
 								</div>
 							</div>
 						</div>

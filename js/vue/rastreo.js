@@ -29,6 +29,7 @@ new Vue({
 						this.data = r.extra;
 					}  else {
 						errorSwal("No existe un envio con este numero de guia")
+						this.data = null;
 					}
 				})
 				.catch((e) => {

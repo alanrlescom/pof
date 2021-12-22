@@ -84,7 +84,7 @@ new Vue({
 	},
 	mounted() {
 		const params = new URLSearchParams(window.location.search);
-		if (params.get('guia')) {
+		if (params.get('guia') && params.get('guia') !== "") {
 			this.auxNumGuia = params.get('guia');
 			loadingSwal();
 			this.getRastreo();

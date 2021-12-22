@@ -25,7 +25,11 @@ new Vue({
 				.then((res) => {
 					Swal.close();
 					const r = JSON.parse(res);
-					this.data = r.extra;
+					if (r.status === 200) {
+						this.data = r.extra;
+					}  else {
+						errorSwal("No existe un envio con este numero de guia")
+					}
 				})
 				.catch((e) => {
 					console.log(e);

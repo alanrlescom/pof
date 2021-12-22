@@ -328,9 +328,7 @@ const vue = new Vue({
 		},
 		guardarEnvio(e) {
 			e.preventDefault();
-			loadingSwal();
 			const self = this;
-
 			const { origen, destino } = this.envio;
 
 			if (
@@ -342,6 +340,8 @@ const vue = new Vue({
 				errorSwal('Complete todos los campos por favor');
 				return;
 			}
+
+			loadingSwal();
 
 			$.post('./controlador/guardarEnvio.php', {
 				envio: JSON.stringify(this.envio),

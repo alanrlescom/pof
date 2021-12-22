@@ -11,5 +11,5 @@
         array_push($array, $row);
     }
     send_response(200, "ok", $array);
-    $conn->close();
+    // $conn->close();
 ?>

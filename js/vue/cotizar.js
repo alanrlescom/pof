@@ -287,7 +287,7 @@ const vue = new Vue({
 			};
 
 			const precioPorKilometro = (dis) => {
-				const d = Math.ceil(dis / 10)
+				const d = Math.ceil(dis / 10);
 				return d < 1 ? 0.5 : d * 100;
 			};
 
@@ -300,8 +300,9 @@ const vue = new Vue({
 			}
 
 			this.cotizacion = {
-				costo: parseFloat(precioPorKilometro(dis) + 
-					precioPorKilometro(dis) * (pesoVolumetrico(size) / 100)
+				costo: parseFloat(
+					precioPorKilometro(dis) +
+						precioPorKilometro(dis) * (pesoVolumetrico(size) / 100)
 				).toFixed(2),
 				fecha: date,
 				distancia: distancia,
@@ -355,15 +356,27 @@ const vue = new Vue({
 							})
 							.then((rstripe) => {
 								if (rstripe.error) {
+									console.log(rstripe);
 									$.post('./controlador/eliminarEnvio.php', {
 										id: rguardar.extra.id,
 									})
 										.then((str_r) => {
 											const r = JSON.parse(str_r);
 											Swal.close();
-											console.log(rstripe);
 											if (r.status === 200) {
-												// Mostrar error de stripe
+												if (
+													rstripe.error
+														.decline_code ===
+													'insufficient_funds'
+												) {
+													errorSwal(
+														'El cobro fue rechazado por saldo insuficiente'
+													);
+												} else {
+													errorSwal(
+														'Ocurrio un error haciendo el cobro'
+													);
+												}
 											} else {
 												errorSwal(r.message);
 											}

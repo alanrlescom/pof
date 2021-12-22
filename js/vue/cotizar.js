@@ -330,6 +330,19 @@ const vue = new Vue({
 			e.preventDefault();
 			loadingSwal();
 			const self = this;
+
+			const { origen, destino } = this.envio;
+
+			if (
+				origen.nombre === '' ||
+				origen.telefono === '' ||
+				destino.nombre === '' ||
+				destino.telefono === ''
+			) {
+				errorSwal('Complete todos los campos por favor');
+				return;
+			}
+
 			$.post('./controlador/guardarEnvio.php', {
 				envio: JSON.stringify(this.envio),
 				cotizacion: JSON.stringify(this.cotizacion),
@@ -358,7 +371,10 @@ const vue = new Vue({
 											const r = JSON.parse(str_r);
 											Swal.close();
 											if (r.status === 200) {
-												if (rstripe.error.code === "card_declined") {
+												if (
+													rstripe.error.code ===
+													'card_declined'
+												) {
 													if (
 														rstripe.error
 															.decline_code ===
@@ -452,10 +468,16 @@ const vue = new Vue({
 			window.location.href = './index.php';
 		},
 		obenerSucursales() {
-			$.post("./controlador/sucursales.php", {}).then(res => {
-				const r = JSON.parse(res);
-				this.sucursales = r.extra.map(v => ({value: v.id, label: v.nombre, data: { lat: v.lat, lon: v.lon }}))
-			}).catch(console.log)
+			$.post('./controlador/sucursales.php', {})
+				.then((res) => {
+					const r = JSON.parse(res);
+					this.sucursales = r.extra.map((v) => ({
+						value: v.id,
+						label: v.nombre,
+						data: { lat: v.lat, lon: v.lon },
+					}));
+				})
+				.catch(console.log);
 		},
 	},
 	mounted() {

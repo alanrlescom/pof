@@ -255,11 +255,11 @@ session_start();
 									Remitente
 								</div>
 								<div class="form-field inline">
-									<label>Su nombre completo:</label>
+									<label>Su nombre completo*:</label>
 									<input type="text" v-model="envio.origen.nombre" />
 								</div>
 								<div class="form-field inline">
-									<label>Telefono:</label>
+									<label>Telefono*:</label>
 									<input type="text" v-model="envio.origen.telefono">
 								</div>
 								<div class="form-field inline">
@@ -272,11 +272,11 @@ session_start();
 									Destinatario
 								</div>
 								<div class="form-field inline">
-									<label>Nombre completo:</label>
+									<label>Nombre completo*:</label>
 									<input type="text" v-model="envio.destino.nombre" />
 								</div>
 								<div class="form-field inline">
-									<label>Telefono:</label>
+									<label>Telefono*:</label>
 									<input type="text" v-model="envio.destino.telefono">
 								</div>
 								<div class="form-field inline">

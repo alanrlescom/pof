@@ -20,7 +20,7 @@ new Vue({
 			this.numGuia = this.auxNumGuia;
 			if (this.numGuia === "") {
 				errorSwal(
-					"Campos obligatorios, complete todos los campos por favor."
+					"Complete todos los campos por favor"
 				)
 			}else if (!new RegExp('^[0-9]{1,11}$').test(this.numGuia)) {
 				errorSwal(

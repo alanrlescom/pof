@@ -1,3 +1,39 @@
+function validate(e) {
+	const v = (elem) => elem;
+
+	if (v(e.nombre) === '') {
+		errorSwal('El nombre es obligatorio');
+		return false;
+	}
+	if (
+		!new RegExp('^(?!.* $)[A-Za-z]+$').test(v(e.nombre)) &&
+		v(e.nombre) != ''
+	) {
+		errorSwal('El nombre no puede tener digitos ni caracteres especiales');
+		return false;
+	}
+	if (
+		e.email !== '' &&
+		!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+			v(e.email).toLowerCase()
+		)
+	) {
+		errorSwal('El correo electrónico no es valido');
+		return false;
+	}
+	if (v(e.telefono) === '') {
+		errorSwal('El telefono es obligatorio');
+		return false;
+	}
+	if (!new RegExp('^[0-9]{10}$').test(v(e.telefono)) && v(e.telefono) != '') {
+		errorSwal(
+			'El teléfono debe ser de 10 dígitos sin letras ni caracteres especiales'
+		);
+		return false;
+	}
+	return true;
+}
+
 function calcKm({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) {
 	rad = function (x) {
 		return (x * Math.PI) / 180;
@@ -341,6 +377,14 @@ const vue = new Vue({
 				return;
 			}
 
+			if (!validate(origen)) {
+				return;
+			}
+
+			if (!validate(destino)) {
+				return;
+			}
+
 			loadingSwal();
 
 			$.post('./controlador/guardarEnvio.php', {
@@ -382,6 +426,10 @@ const vue = new Vue({
 													) {
 														errorSwal(
 															'El cobro fue rechazado por saldo insuficiente'
+														);
+													} else {
+														errorSwal(
+															'Ocurrio un error haciendo el cobro'
 														);
 													}
 												} else {
